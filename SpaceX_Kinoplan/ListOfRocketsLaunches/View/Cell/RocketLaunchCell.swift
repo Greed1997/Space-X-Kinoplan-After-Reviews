@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RocketLaunchCell: UICollectionViewCell, SelfConfiguringCell {
     static var reuseID: String {
@@ -33,19 +34,22 @@ class RocketLaunchCell: UICollectionViewCell, SelfConfiguringCell {
         return label
     }()
     func configure<U>(with value: U) where U : Hashable {
-        guard let value = value as? RocketLaunch else { return }
-        missionNameLabel.text = value.missionName!
+        guard let value = value as? RocketLaunchCellModel else { return }
+        missionNameLabel.text = value.missionName
+        dateLabel.text = value.missionDate
+        missionPatchImageView.kf.setImage(with: value.missionPatchImageViewURL)
 
-        let dateString = value.launchDateLocal!
-        if let index = value.launchDateLocal?.firstIndex(of: "T") {
-            let date = dateString.prefix(upTo: index)
-            let time = dateString.suffix(from: dateString.index(after: index))
-            let formatedString = "\(date)\n\(time)"
-            dateLabel.text = formatedString
-        }
-        if let missionPatch = value.links?.missionPatch {
-            self.missionPatchImageView.fetchImage(from: missionPatch)
-        }
+//        let dateString = value.launchDateLocal!
+//        if let index = value.launchDateLocal?.firstIndex(of: "T") {
+//            let date = dateString.prefix(upTo: index)
+//            let time = dateString.suffix(from: dateString.index(after: index))
+//            let formatedString = "\(date)\n\(time)"
+//            dateLabel.text = formatedString
+//        }
+//        //        missionPatchImageView.kf.set
+//        if let missionPatch = value.links?.missionPatch {
+//            self.missionPatchImageView.fetchImage(from: missionPatch)
+//        }
     }
     override func layoutSubviews() {
         super.layoutSubviews()

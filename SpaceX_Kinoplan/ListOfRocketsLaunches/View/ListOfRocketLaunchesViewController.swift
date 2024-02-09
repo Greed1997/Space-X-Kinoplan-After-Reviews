@@ -6,22 +6,14 @@
 //
 
 import UIKit
-protocol ListOfRocketsLaunchesViewControllerInputProtocol: AnyObject {
-    func reloadCollectionView(rocketLaunches: [RocketLaunch])
-}
-protocol ListOfRocketsLaunchesViewControllerOutputProtocol: AnyObject {
-    init(view: ListOfRocketsLaunchesViewControllerInputProtocol, router: RouterProtocol)
-    func viewDidLoad()
-    func dataFetched(rocketLaunches: [RocketLaunch])
-    func getSelectedRocketLaunch(index: Int)
-}
+
 class ListOfRocketsLaunchesViewController: UIViewController {
     enum Section: Int, CaseIterable {
         case rocketLaunchesInfo
     }
     var presenter: ListOfRocketsLaunchesViewControllerOutputProtocol!
     private var collectionView: UICollectionView! = nil
-    private var dataSource: UICollectionViewDiffableDataSource<Section, RocketLaunch>?
+    private var dataSource: UICollectionViewDiffableDataSource<Section, RocketLaunchCellModel>?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
@@ -78,7 +70,7 @@ private extension ListOfRocketsLaunchesViewController {
 // MARK: - Create data source
 private extension ListOfRocketsLaunchesViewController {
     private func createDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, RocketLaunch>(collectionView: collectionView, cellProvider: { collectionView, indexPath, rocketLaunch in
+        dataSource = UICollectionViewDiffableDataSource<Section, RocketLaunchCellModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, rocketLaunch in
             guard let section = Section(rawValue: indexPath.section) else {
                 fatalError("Unknow section kind")
             }
@@ -91,10 +83,10 @@ private extension ListOfRocketsLaunchesViewController {
 }
 // MARK: - ListOfRocketsLaunchesPresenterInput
 extension ListOfRocketsLaunchesViewController: ListOfRocketsLaunchesViewControllerInputProtocol {
-    internal func reloadCollectionView(rocketLaunches: [RocketLaunch]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, RocketLaunch>()
+    internal func reloadCollectionView(rocketLaunchCellModels: [RocketLaunchCellModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, RocketLaunchCellModel>()
         snapshot.appendSections([.rocketLaunchesInfo])
-        snapshot.appendItems(rocketLaunches, toSection: .rocketLaunchesInfo)
+        snapshot.appendItems(rocketLaunchCellModels, toSection: .rocketLaunchesInfo)
         dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
