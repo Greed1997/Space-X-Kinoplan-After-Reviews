@@ -7,8 +7,15 @@
 
 import Foundation
 
+// MARK: - ListOfRocketsLaunchesInteractorInputProtocol
 protocol ListOfRocketsLaunchesInteractorInputProtocol: AnyObject {
-    init(presenter: ListOfRocketsLaunchesInteractorOutputProtocol, networkService: NetworkServiceProtocol)
-    func fetchData()
-    func getNeededRocketLaunchInfo(index: Int)
+//  init(networkService: NetworkServiceProtocol, cacheStorage: CacheStorageProtocol)
+  func fetchData()
+  func getNeededRocketLaunch(index: Int)
+}
+
+// MARK: - ListOfRocketsLaunchesInteractorOutputProtocol
+protocol ListOfRocketsLaunchesInteractorOutputProtocol: AnyObject {
+  func dataFetched(rocketLaunches: [RocketLaunch])
+  func goToRocketLaunchVC(rocketLaunch: RocketLaunch)
 }

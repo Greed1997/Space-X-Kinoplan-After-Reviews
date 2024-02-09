@@ -1,0 +1,6 @@
+framework module ViperMcFlurrySwiftFix {
+  umbrella header "ViperMcFlurrySwiftFix-umbrella.h"
+
+  export *
+  module * { export * }
+}

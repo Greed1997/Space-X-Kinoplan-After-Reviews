@@ -7,6 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		246F72F2BBC53D9FAEF18413 /* Pods_SpaceX_Kinoplan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81131607F37285F178E8C3E8 /* Pods_SpaceX_Kinoplan.framework */; };
+		84B4FD672B74C99200CAD3B4 /* RocketLaunchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD662B74C99200CAD3B4 /* RocketLaunchInteractor.swift */; };
+		84B4FD692B74C9CE00CAD3B4 /* ListOfFlickerImagesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD682B74C9CE00CAD3B4 /* ListOfFlickerImagesInteractor.swift */; };
+		84B4FD6E2B74CA4E00CAD3B4 /* RocketLaunchFlickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD6D2B74CA4E00CAD3B4 /* RocketLaunchFlickerImage.swift */; };
+		84B4FD712B74CA6100CAD3B4 /* RocketLaunchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD702B74CA6100CAD3B4 /* RocketLaunchInfo.swift */; };
+		84B4FD772B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD762B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift */; };
+		84B4FD7A2B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD792B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift */; };
+		84B4FD802B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD7F2B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift */; };
+		84B4FD832B74CEDC00CAD3B4 /* RocketLaunchInteractorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD822B74CEDC00CAD3B4 /* RocketLaunchInteractorProtocols.swift */; };
+		84B4FD862B74CF3900CAD3B4 /* ListOfFlickerImagesPresenterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD852B74CF3900CAD3B4 /* ListOfFlickerImagesPresenterProtocols.swift */; };
+		84B4FD8A2B74CF8600CAD3B4 /* ListOfFlickerImagesInteractorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD892B74CF8600CAD3B4 /* ListOfFlickerImagesInteractorProtocols.swift */; };
+		84B4FD8D2B74CFA600CAD3B4 /* ListOfFlickerImagesViewControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD8C2B74CFA600CAD3B4 /* ListOfFlickerImagesViewControllerProtocols.swift */; };
+		84B4FD902B74CFFC00CAD3B4 /* ListOfRocketsLaunchesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD8F2B74CFFC00CAD3B4 /* ListOfRocketsLaunchesRouter.swift */; };
+		84B4FD932B74D01800CAD3B4 /* ListOfRocketsLaunchesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD922B74D01800CAD3B4 /* ListOfRocketsLaunchesAssembly.swift */; };
+		84B4FD962B74D03600CAD3B4 /* RocketLaunchInfoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD952B74D03600CAD3B4 /* RocketLaunchInfoAssembly.swift */; };
+		84B4FD992B74D04400CAD3B4 /* RocketLaunchInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD982B74D04400CAD3B4 /* RocketLaunchInfoRouter.swift */; };
+		84B4FD9D2B74D0AC00CAD3B4 /* ListOfRocketsLaunchesRouterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD9C2B74D0AC00CAD3B4 /* ListOfRocketsLaunchesRouterProtocols.swift */; };
+		84B4FDA02B74D0C400CAD3B4 /* ListOfRocketsLaunchesAssemblyProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD9F2B74D0C400CAD3B4 /* ListOfRocketsLaunchesAssemblyProtocols.swift */; };
+		84B4FDA32B74D0E300CAD3B4 /* RocketLaunchInfoAssemblyProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDA22B74D0E300CAD3B4 /* RocketLaunchInfoAssemblyProtocols.swift */; };
+		84B4FDA62B74D0FC00CAD3B4 /* RocketLaunchInfoRouterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDA52B74D0FC00CAD3B4 /* RocketLaunchInfoRouterProtocols.swift */; };
+		84B4FDA82B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDA72B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift */; };
+		84B4FDAB2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDAA2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift */; };
+		84B4FDAE2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDAD2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift */; };
+		84B4FDB12B74D18400CAD3B4 /* ListOfFlickerImagesAssemblyProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDB02B74D18400CAD3B4 /* ListOfFlickerImagesAssemblyProtocols.swift */; };
+		84B4FDB32B74D5C300CAD3B4 /* RouterMainProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDB22B74D5C300CAD3B4 /* RouterMainProtocol.swift */; };
 		84E0ECF72B627A8A00D53D62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0ECF62B627A8A00D53D62 /* AppDelegate.swift */; };
 		84E0ECF92B627A8A00D53D62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0ECF82B627A8A00D53D62 /* SceneDelegate.swift */; };
 		84E0ED002B627A8D00D53D62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84E0ECFF2B627A8D00D53D62 /* Assets.xcassets */; };
@@ -29,11 +54,36 @@
 		84E0ED3D2B63EE3F00D53D62 /* ListOfFlickerImagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0ED3C2B63EE3F00D53D62 /* ListOfFlickerImagesPresenter.swift */; };
 		84E0ED3F2B65151600D53D62 /* FlickerImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0ED3E2B65151600D53D62 /* FlickerImageCell.swift */; };
 		84E0ED432B66116C00D53D62 /* CacheStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0ED422B66116C00D53D62 /* CacheStorage.swift */; };
-		FBE4EEA76F4D5109477AC631 /* Pods_SpaceX_Kinoplan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E80A7CDE47E1F30B2550E994 /* Pods_SpaceX_Kinoplan.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		091F0EC46EC51F57EE20DC5C /* Pods-SpaceX_Kinoplan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpaceX_Kinoplan.debug.xcconfig"; path = "Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan.debug.xcconfig"; sourceTree = "<group>"; };
+		3A258ADB89BC5CD63AE33EE3 /* Pods-SpaceX_Kinoplan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpaceX_Kinoplan.debug.xcconfig"; path = "Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan.debug.xcconfig"; sourceTree = "<group>"; };
+		70102D01004284A6D5C9B6F1 /* Pods-SpaceX_Kinoplan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpaceX_Kinoplan.release.xcconfig"; path = "Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan.release.xcconfig"; sourceTree = "<group>"; };
+		81131607F37285F178E8C3E8 /* Pods_SpaceX_Kinoplan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpaceX_Kinoplan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B4FD662B74C99200CAD3B4 /* RocketLaunchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInteractor.swift; sourceTree = "<group>"; };
+		84B4FD682B74C9CE00CAD3B4 /* ListOfFlickerImagesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesInteractor.swift; sourceTree = "<group>"; };
+		84B4FD6D2B74CA4E00CAD3B4 /* RocketLaunchFlickerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchFlickerImage.swift; sourceTree = "<group>"; };
+		84B4FD702B74CA6100CAD3B4 /* RocketLaunchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInfo.swift; sourceTree = "<group>"; };
+		84B4FD762B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesViewControllerProtocols.swift; sourceTree = "<group>"; };
+		84B4FD792B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInfoViewProtocols.swift; sourceTree = "<group>"; };
+		84B4FD7F2B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesInteractorProtocols.swift; sourceTree = "<group>"; };
+		84B4FD822B74CEDC00CAD3B4 /* RocketLaunchInteractorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInteractorProtocols.swift; sourceTree = "<group>"; };
+		84B4FD852B74CF3900CAD3B4 /* ListOfFlickerImagesPresenterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesPresenterProtocols.swift; sourceTree = "<group>"; };
+		84B4FD892B74CF8600CAD3B4 /* ListOfFlickerImagesInteractorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesInteractorProtocols.swift; sourceTree = "<group>"; };
+		84B4FD8C2B74CFA600CAD3B4 /* ListOfFlickerImagesViewControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesViewControllerProtocols.swift; sourceTree = "<group>"; };
+		84B4FD8F2B74CFFC00CAD3B4 /* ListOfRocketsLaunchesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesRouter.swift; sourceTree = "<group>"; };
+		84B4FD922B74D01800CAD3B4 /* ListOfRocketsLaunchesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesAssembly.swift; sourceTree = "<group>"; };
+		84B4FD952B74D03600CAD3B4 /* RocketLaunchInfoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInfoAssembly.swift; sourceTree = "<group>"; };
+		84B4FD982B74D04400CAD3B4 /* RocketLaunchInfoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInfoRouter.swift; sourceTree = "<group>"; };
+		84B4FD9C2B74D0AC00CAD3B4 /* ListOfRocketsLaunchesRouterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesRouterProtocols.swift; sourceTree = "<group>"; };
+		84B4FD9F2B74D0C400CAD3B4 /* ListOfRocketsLaunchesAssemblyProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesAssemblyProtocols.swift; sourceTree = "<group>"; };
+		84B4FDA22B74D0E300CAD3B4 /* RocketLaunchInfoAssemblyProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInfoAssemblyProtocols.swift; sourceTree = "<group>"; };
+		84B4FDA52B74D0FC00CAD3B4 /* RocketLaunchInfoRouterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInfoRouterProtocols.swift; sourceTree = "<group>"; };
+		84B4FDA72B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesRouter.swift; sourceTree = "<group>"; };
+		84B4FDAA2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesRouterProtocols.swift; sourceTree = "<group>"; };
+		84B4FDAD2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesAssembly.swift; sourceTree = "<group>"; };
+		84B4FDB02B74D18400CAD3B4 /* ListOfFlickerImagesAssemblyProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesAssemblyProtocols.swift; sourceTree = "<group>"; };
+		84B4FDB22B74D5C300CAD3B4 /* RouterMainProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMainProtocol.swift; sourceTree = "<group>"; };
 		84E0ECF32B627A8A00D53D62 /* SpaceX_Kinoplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceX_Kinoplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E0ECF62B627A8A00D53D62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84E0ECF82B627A8A00D53D62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,8 +108,6 @@
 		84E0ED3C2B63EE3F00D53D62 /* ListOfFlickerImagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesPresenter.swift; sourceTree = "<group>"; };
 		84E0ED3E2B65151600D53D62 /* FlickerImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageCell.swift; sourceTree = "<group>"; };
 		84E0ED422B66116C00D53D62 /* CacheStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheStorage.swift; sourceTree = "<group>"; };
-		A7102A639DCBE2E86AB8ABA9 /* Pods-SpaceX_Kinoplan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpaceX_Kinoplan.release.xcconfig"; path = "Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan.release.xcconfig"; sourceTree = "<group>"; };
-		E80A7CDE47E1F30B2550E994 /* Pods_SpaceX_Kinoplan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpaceX_Kinoplan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,20 +115,228 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBE4EEA76F4D5109477AC631 /* Pods_SpaceX_Kinoplan.framework in Frameworks */,
+				246F72F2BBC53D9FAEF18413 /* Pods_SpaceX_Kinoplan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84B4FD642B74C95400CAD3B4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				84E0ED162B627B7A00D53D62 /* RocketLaunchCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		84B4FD652B74C97900CAD3B4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD812B74CEC500CAD3B4 /* Protocols */,
+				84B4FD662B74C99200CAD3B4 /* RocketLaunchInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		84B4FD6A2B74C9D600CAD3B4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD872B74CF7100CAD3B4 /* Protocols */,
+				84B4FD682B74C9CE00CAD3B4 /* ListOfFlickerImagesInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		84B4FD6B2B74C9E300CAD3B4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				84E0ED0E2B627B2100D53D62 /* RocketLaunch.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		84B4FD6C2B74CA2A00CAD3B4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD6D2B74CA4E00CAD3B4 /* RocketLaunchFlickerImage.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		84B4FD6F2B74CA5200CAD3B4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD702B74CA6100CAD3B4 /* RocketLaunchInfo.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		84B4FD752B74CD1900CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD762B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD782B74CD8300CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD792B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD7E2B74CDF300CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD7F2B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD812B74CEC500CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD822B74CEDC00CAD3B4 /* RocketLaunchInteractorProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD842B74CF2100CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD852B74CF3900CAD3B4 /* ListOfFlickerImagesPresenterProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD872B74CF7100CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD892B74CF8600CAD3B4 /* ListOfFlickerImagesInteractorProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD8B2B74CF8E00CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD8C2B74CFA600CAD3B4 /* ListOfFlickerImagesViewControllerProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD8E2B74CFD100CAD3B4 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD9B2B74D0A300CAD3B4 /* Protocols */,
+				84B4FD8F2B74CFFC00CAD3B4 /* ListOfRocketsLaunchesRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		84B4FD912B74D00200CAD3B4 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD9E2B74D0BB00CAD3B4 /* Protocols */,
+				84B4FD922B74D01800CAD3B4 /* ListOfRocketsLaunchesAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		84B4FD942B74D02500CAD3B4 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDA12B74D0D800CAD3B4 /* Protocols */,
+				84B4FD952B74D03600CAD3B4 /* RocketLaunchInfoAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		84B4FD972B74D03B00CAD3B4 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDA42B74D0F100CAD3B4 /* Protocols */,
+				84B4FD982B74D04400CAD3B4 /* RocketLaunchInfoRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		84B4FD9A2B74D08900CAD3B4 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDA92B74D13200CAD3B4 /* Protocols */,
+				84B4FDA72B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		84B4FD9B2B74D0A300CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD9C2B74D0AC00CAD3B4 /* ListOfRocketsLaunchesRouterProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FD9E2B74D0BB00CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FD9F2B74D0C400CAD3B4 /* ListOfRocketsLaunchesAssemblyProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FDA12B74D0D800CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDA22B74D0E300CAD3B4 /* RocketLaunchInfoAssemblyProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FDA42B74D0F100CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDA52B74D0FC00CAD3B4 /* RocketLaunchInfoRouterProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FDA92B74D13200CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDAA2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B4FDAC2B74D16200CAD3B4 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDAF2B74D17600CAD3B4 /* Protocols */,
+				84B4FDAD2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		84B4FDAF2B74D17600CAD3B4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84B4FDB02B74D18400CAD3B4 /* ListOfFlickerImagesAssemblyProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		84E0ECEA2B627A8A00D53D62 = {
 			isa = PBXGroup;
 			children = (
 				84E0ECF52B627A8A00D53D62 /* SpaceX_Kinoplan */,
 				84E0ECF42B627A8A00D53D62 /* Products */,
 				D2C7D4F1ADF3BE8B4BBA8046 /* Pods */,
-				B23E8F564DA964316C1F6071 /* Frameworks */,
+				F1BA876D887CD74E3D0949DB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,14 +355,13 @@
 				84E0ED2E2B63CAD800D53D62 /* RocketLaunchInfo */,
 				84E0ED3A2B63EE1400D53D62 /* ListOfFlickerImages */,
 				84E0ED352B63ED1C00D53D62 /* Services */,
-				84E0ED342B63ED1300D53D62 /* Cells */,
 				84E0ED332B63ED0900D53D62 /* Extensions */,
 				84E0ED382B63ED6B00D53D62 /* Storyboards */,
 				84E0ED372B63ED6200D53D62 /* Source */,
 				84E0ED362B63ED4000D53D62 /* App */,
 				84E0ED0A2B627AF700D53D62 /* Router.swift */,
+				84B4FDB22B74D5C300CAD3B4 /* RouterMainProtocol.swift */,
 				84E0ED0C2B627B0B00D53D62 /* AssemblyBuilder.swift */,
-				84E0ED0E2B627B2100D53D62 /* RocketLaunch.swift */,
 				84E0ED102B627B3700D53D62 /* SelfConfiguringCell.swift */,
 				84E0ED202B63639A00D53D62 /* RocketLauncheImageView.swift */,
 				84E0ED142B627B6D00D53D62 /* RocketError.swift */,
@@ -114,20 +369,25 @@
 			path = SpaceX_Kinoplan;
 			sourceTree = "<group>";
 		};
-		84E0ED262B639EC300D53D62 /* ViewController */ = {
+		84E0ED262B639EC300D53D62 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84B4FD642B74C95400CAD3B4 /* Cell */,
+				84B4FD752B74CD1900CAD3B4 /* Protocols */,
 				84E0ED1E2B627BFA00D53D62 /* ListOfRocketLaunchesViewController.swift */,
 			);
-			path = ViewController;
+			path = View;
 			sourceTree = "<group>";
 		};
 		84E0ED272B639ECB00D53D62 /* ListOfRocketsLaunches */ = {
 			isa = PBXGroup;
 			children = (
-				84E0ED292B639EDB00D53D62 /* Interactor */,
+				84B4FD912B74D00200CAD3B4 /* Assembly */,
+				84B4FD8E2B74CFD100CAD3B4 /* Router */,
+				84E0ED262B639EC300D53D62 /* View */,
 				84E0ED282B639ED500D53D62 /* Presenter */,
-				84E0ED262B639EC300D53D62 /* ViewController */,
+				84E0ED292B639EDB00D53D62 /* Interactor */,
+				84B4FD6B2B74C9E300CAD3B4 /* Entity */,
 			);
 			path = ListOfRocketsLaunches;
 			sourceTree = "<group>";
@@ -143,6 +403,7 @@
 		84E0ED292B639EDB00D53D62 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				84B4FD7E2B74CDF300CAD3B4 /* Protocols */,
 				84E0ED2C2B639EF700D53D62 /* ListOfRocketsLaunchesInteractor.swift */,
 			);
 			path = Interactor;
@@ -151,18 +412,23 @@
 		84E0ED2E2B63CAD800D53D62 /* RocketLaunchInfo */ = {
 			isa = PBXGroup;
 			children = (
+				84B4FD942B74D02500CAD3B4 /* Assembly */,
+				84B4FD972B74D03B00CAD3B4 /* Router */,
+				84E0ED2F2B63CAE700D53D62 /* View */,
 				84E0ED302B63CAEE00D53D62 /* Presenter */,
-				84E0ED2F2B63CAE700D53D62 /* ViewController */,
+				84B4FD652B74C97900CAD3B4 /* Interactor */,
+				84B4FD6F2B74CA5200CAD3B4 /* Entity */,
 			);
 			path = RocketLaunchInfo;
 			sourceTree = "<group>";
 		};
-		84E0ED2F2B63CAE700D53D62 /* ViewController */ = {
+		84E0ED2F2B63CAE700D53D62 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84B4FD782B74CD8300CAD3B4 /* Protocols */,
 				84E0ED1A2B627BAC00D53D62 /* RocketLaunchInfoViewController.swift */,
 			);
-			path = ViewController;
+			path = View;
 			sourceTree = "<group>";
 		};
 		84E0ED302B63CAEE00D53D62 /* Presenter */ = {
@@ -181,13 +447,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		84E0ED342B63ED1300D53D62 /* Cells */ = {
+		84E0ED342B63ED1300D53D62 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				84E0ED162B627B7A00D53D62 /* RocketLaunchCell.swift */,
 				84E0ED3E2B65151600D53D62 /* FlickerImageCell.swift */,
 			);
-			path = Cells;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		84E0ED352B63ED1C00D53D62 /* Services */ = {
@@ -225,19 +490,25 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		84E0ED392B63EE0A00D53D62 /* ViewController */ = {
+		84E0ED392B63EE0A00D53D62 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84E0ED342B63ED1300D53D62 /* Cell */,
+				84B4FD8B2B74CF8E00CAD3B4 /* Protocols */,
 				84E0ED1C2B627BC600D53D62 /* ListOfFlickerImagesViewController.swift */,
 			);
-			path = ViewController;
+			path = View;
 			sourceTree = "<group>";
 		};
 		84E0ED3A2B63EE1400D53D62 /* ListOfFlickerImages */ = {
 			isa = PBXGroup;
 			children = (
+				84B4FDAC2B74D16200CAD3B4 /* Assembly */,
+				84B4FD9A2B74D08900CAD3B4 /* Router */,
+				84E0ED392B63EE0A00D53D62 /* View */,
 				84E0ED3B2B63EE2F00D53D62 /* Presenter */,
-				84E0ED392B63EE0A00D53D62 /* ViewController */,
+				84B4FD6A2B74C9D600CAD3B4 /* Interactor */,
+				84B4FD6C2B74CA2A00CAD3B4 /* Entity */,
 			);
 			path = ListOfFlickerImages;
 			sourceTree = "<group>";
@@ -245,26 +516,27 @@
 		84E0ED3B2B63EE2F00D53D62 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				84B4FD842B74CF2100CAD3B4 /* Protocols */,
 				84E0ED3C2B63EE3F00D53D62 /* ListOfFlickerImagesPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		B23E8F564DA964316C1F6071 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E80A7CDE47E1F30B2550E994 /* Pods_SpaceX_Kinoplan.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		D2C7D4F1ADF3BE8B4BBA8046 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				091F0EC46EC51F57EE20DC5C /* Pods-SpaceX_Kinoplan.debug.xcconfig */,
-				A7102A639DCBE2E86AB8ABA9 /* Pods-SpaceX_Kinoplan.release.xcconfig */,
+				3A258ADB89BC5CD63AE33EE3 /* Pods-SpaceX_Kinoplan.debug.xcconfig */,
+				70102D01004284A6D5C9B6F1 /* Pods-SpaceX_Kinoplan.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F1BA876D887CD74E3D0949DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				81131607F37285F178E8C3E8 /* Pods_SpaceX_Kinoplan.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,11 +546,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84E0ED072B627A8D00D53D62 /* Build configuration list for PBXNativeTarget "SpaceX_Kinoplan" */;
 			buildPhases = (
-				4269EA5CC77EC53F1EED315C /* [CP] Check Pods Manifest.lock */,
+				627617E0D2B7224907FFADAB /* [CP] Check Pods Manifest.lock */,
 				84E0ECEF2B627A8A00D53D62 /* Sources */,
 				84E0ECF02B627A8A00D53D62 /* Frameworks */,
 				84E0ECF12B627A8A00D53D62 /* Resources */,
-				B4C0973BA3080963E482F3DD /* [CP] Embed Pods Frameworks */,
+				1A79512DD40BC118C6E6E329 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -335,7 +607,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4269EA5CC77EC53F1EED315C /* [CP] Check Pods Manifest.lock */ = {
+		1A79512DD40BC118C6E6E329 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		627617E0D2B7224907FFADAB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -357,23 +646,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B4C0973BA3080963E482F3DD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SpaceX_Kinoplan/Pods-SpaceX_Kinoplan-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -384,23 +656,47 @@
 				84E0ED192B627B8E00D53D62 /* UIViewController + Extension.swift in Sources */,
 				84E0ED172B627B7A00D53D62 /* RocketLaunchCell.swift in Sources */,
 				84E0ED432B66116C00D53D62 /* CacheStorage.swift in Sources */,
+				84B4FD862B74CF3900CAD3B4 /* ListOfFlickerImagesPresenterProtocols.swift in Sources */,
+				84B4FDA02B74D0C400CAD3B4 /* ListOfRocketsLaunchesAssemblyProtocols.swift in Sources */,
+				84B4FD6E2B74CA4E00CAD3B4 /* RocketLaunchFlickerImage.swift in Sources */,
 				84E0ED112B627B3700D53D62 /* SelfConfiguringCell.swift in Sources */,
 				84E0ED0F2B627B2100D53D62 /* RocketLaunch.swift in Sources */,
 				84E0ED3D2B63EE3F00D53D62 /* ListOfFlickerImagesPresenter.swift in Sources */,
+				84B4FD902B74CFFC00CAD3B4 /* ListOfRocketsLaunchesRouter.swift in Sources */,
+				84B4FD772B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift in Sources */,
+				84B4FD672B74C99200CAD3B4 /* RocketLaunchInteractor.swift in Sources */,
+				84B4FD802B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift in Sources */,
+				84B4FD962B74D03600CAD3B4 /* RocketLaunchInfoAssembly.swift in Sources */,
+				84B4FDA32B74D0E300CAD3B4 /* RocketLaunchInfoAssemblyProtocols.swift in Sources */,
+				84B4FDB32B74D5C300CAD3B4 /* RouterMainProtocol.swift in Sources */,
+				84B4FD712B74CA6100CAD3B4 /* RocketLaunchInfo.swift in Sources */,
+				84B4FD9D2B74D0AC00CAD3B4 /* ListOfRocketsLaunchesRouterProtocols.swift in Sources */,
+				84B4FD832B74CEDC00CAD3B4 /* RocketLaunchInteractorProtocols.swift in Sources */,
 				84E0ED1D2B627BC600D53D62 /* ListOfFlickerImagesViewController.swift in Sources */,
+				84B4FD8A2B74CF8600CAD3B4 /* ListOfFlickerImagesInteractorProtocols.swift in Sources */,
+				84B4FDAE2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift in Sources */,
 				84E0ED2B2B639EEA00D53D62 /* ListOfRocketsLaunchesPresenter.swift in Sources */,
+				84B4FDA82B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift in Sources */,
 				84E0ED132B627B4E00D53D62 /* NetworkService.swift in Sources */,
 				84E0ED1B2B627BAC00D53D62 /* RocketLaunchInfoViewController.swift in Sources */,
+				84B4FD8D2B74CFA600CAD3B4 /* ListOfFlickerImagesViewControllerProtocols.swift in Sources */,
 				84E0ED322B63CAFC00D53D62 /* RocketLaunchInfoPresenter.swift in Sources */,
+				84B4FD992B74D04400CAD3B4 /* RocketLaunchInfoRouter.swift in Sources */,
+				84B4FD692B74C9CE00CAD3B4 /* ListOfFlickerImagesInteractor.swift in Sources */,
 				84E0ED1F2B627BFA00D53D62 /* ListOfRocketLaunchesViewController.swift in Sources */,
+				84B4FDA62B74D0FC00CAD3B4 /* RocketLaunchInfoRouterProtocols.swift in Sources */,
 				84E0ED0B2B627AF700D53D62 /* Router.swift in Sources */,
 				84E0ED2D2B639EF700D53D62 /* ListOfRocketsLaunchesInteractor.swift in Sources */,
 				84E0ED0D2B627B0B00D53D62 /* AssemblyBuilder.swift in Sources */,
+				84B4FDB12B74D18400CAD3B4 /* ListOfFlickerImagesAssemblyProtocols.swift in Sources */,
+				84B4FD7A2B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift in Sources */,
 				84E0ECF72B627A8A00D53D62 /* AppDelegate.swift in Sources */,
 				84E0ED3F2B65151600D53D62 /* FlickerImageCell.swift in Sources */,
 				84E0ED212B63639A00D53D62 /* RocketLauncheImageView.swift in Sources */,
 				84E0ECF92B627A8A00D53D62 /* SceneDelegate.swift in Sources */,
 				84E0ED152B627B6D00D53D62 /* RocketError.swift in Sources */,
+				84B4FD932B74D01800CAD3B4 /* ListOfRocketsLaunchesAssembly.swift in Sources */,
+				84B4FDAB2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +835,7 @@
 		};
 		84E0ED082B627A8D00D53D62 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 091F0EC46EC51F57EE20DC5C /* Pods-SpaceX_Kinoplan.debug.xcconfig */;
+			baseConfigurationReference = 3A258ADB89BC5CD63AE33EE3 /* Pods-SpaceX_Kinoplan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -568,7 +864,7 @@
 		};
 		84E0ED092B627A8D00D53D62 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A7102A639DCBE2E86AB8ABA9 /* Pods-SpaceX_Kinoplan.release.xcconfig */;
+			baseConfigurationReference = 70102D01004284A6D5C9B6F1 /* Pods-SpaceX_Kinoplan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

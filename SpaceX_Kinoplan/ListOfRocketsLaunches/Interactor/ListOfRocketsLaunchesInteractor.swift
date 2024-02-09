@@ -6,40 +6,45 @@
 //
 
 import Foundation
-protocol ListOfRocketsLaunchesInteractorInputProtocol: AnyObject {
-    init(presenter: ListOfRocketsLaunchesInteractorOutputProtocol, networkService: NetworkServiceProtocol)
-    func fetchData()
-    func getNeededRocketLaunchInfo(index: Int)
-}
-protocol ListOfRocketsLaunchesInteractorOutputProtocol: AnyObject {
-    func dataFetched(rocketLaunches: [RocketLaunch])
-    func goToRocketLaunchVC(rocketLaunch: RocketLaunch)
-}
-class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInputProtocol {
-    
-    let networkService: NetworkServiceProtocol!
-    var rocketLaunches: [RocketLaunch]!
-    weak var presenter: ListOfRocketsLaunchesInteractorOutputProtocol!
-    required init(presenter: ListOfRocketsLaunchesInteractorOutputProtocol, networkService: NetworkServiceProtocol) {
-        self.networkService = networkService
-        self.presenter = presenter
+
+// MARK: - ListOfRocketsLaunchesInteractor
+final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInputProtocol {
+  
+  // MARK: - Properties
+  var rocketLaunches: [RocketLaunch]? = nil
+  // MARK: - Services
+  var networkService: NetworkServiceProtocol? = nil
+  var cacheStorage: CacheStorageProtocol? = nil
+  
+  // MARK: - Connections
+  weak var output: ListOfRocketsLaunchesInteractorOutputProtocol?
+  
+  // MARK: - Init
+//  required init(networkService: NetworkServiceProtocol, cacheStorage: CacheStorageProtocol) {
+//    self.networkService = networkService
+//    self.cacheStorage = cacheStorage
+//  }
+  
+  
+  // MARK: - Interactor input protocol methods
+  // Fetch data for all rocket launches
+  func fetchData() {
+    networkService?.fetchData(from: "https://api.spacexdata.com/v3/launches") { [weak self] result in
+      guard let self = self else { return }
+      switch result {
+      case .success(let rocketLaunches):
+        self.output?.dataFetched(rocketLaunches: rocketLaunches)
+        self.rocketLaunches = rocketLaunches
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
     }
-    
-    func fetchData() {
-        networkService.fetchData(from: "https://api.spacexdata.com/v3/launches") { result in
-            switch result {
-            case .success(let rocketLaunches):
-                self.presenter.dataFetched(rocketLaunches: rocketLaunches)
-                self.rocketLaunches = rocketLaunches
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func getNeededRocketLaunchInfo(index: Int) {
-        let rocketLaunch = rocketLaunches[index]
-        presenter.goToRocketLaunchVC(rocketLaunch: rocketLaunch)
-    }
-    
+  }
+  
+  // Choose rocket launch
+  func getNeededRocketLaunch(index: Int) {
+    guard let rocketLaunches = rocketLaunches else { return }
+    output?.goToRocketLaunchVC(rocketLaunch: rocketLaunches[index])
+  }
+  
 }

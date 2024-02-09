@@ -6,7 +6,10 @@ target 'SpaceX_Kinoplan' do
   use_frameworks!
 
   # Pods for SpaceX_Kinoplan
-pod 'SnapKit', '~> 5.7.0'
+pod 'RxSwift', '~> 5'
+pod 'SnapKit', '~> 5.0.0'
 pod 'Kingfisher', '~> 7.0'
 pod 'Alamofire'
+pod "ViperMcFlurry"
+pod 'ViperMcFlurrySwiftFix'
 end

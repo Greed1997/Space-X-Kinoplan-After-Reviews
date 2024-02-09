@@ -5,4 +5,8 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import Foundation
+import UIKit
+
+protocol RouterMainProtocol {
+  var navigationController: UINavigationController? { get set }
+}

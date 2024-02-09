@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+// MARK: - ListOfFlickerImagesPresenterProtocol
+protocol ListOfFlickerImagesPresenterProtocol: AnyObject {
+    init(view: ListOfFlickerImagesViewProtocol, /*router: RouterProtocol,*/ rocketLaunch: RocketLaunch)
+    func viewDidLoad()
+}

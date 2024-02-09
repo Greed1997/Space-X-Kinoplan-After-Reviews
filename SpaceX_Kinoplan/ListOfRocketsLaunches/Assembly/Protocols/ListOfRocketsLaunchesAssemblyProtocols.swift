@@ -5,4 +5,9 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import Foundation
+import UIKit
+
+// MARK: - ListOfRocketsLaunchesAssemblyProtocol
+protocol ListOfRocketsLaunchesAssemblyProtocol {
+  func createListOfRocketsLaunchesModule(vc: ListOfRocketLaunchesViewProtocol)
+}

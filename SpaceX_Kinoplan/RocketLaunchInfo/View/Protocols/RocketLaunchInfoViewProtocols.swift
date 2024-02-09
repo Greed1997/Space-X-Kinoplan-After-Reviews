@@ -6,9 +6,23 @@
 //
 
 import UIKit
+import ViperMcFlurry
 
+// MARK: - RocketLaunchInfoViewInputProtocol
+protocol RocketLaunchInfoViewInputProtocol: AnyObject {
+  
+}
+// MARK: - RocketLaunchInfoViewOutputProtocol
+protocol RocketLaunchInfoOutputProtocol: AnyObject {
+    func viewDidLoad()
+    func youtubeButtonTapped()
+    func wikiButtonTapped()
+    func redditButtonTapped()
+    func articleButtonTapped()
+    func flickerImagesButtonTapped()
+}
 // MARK: - RocketLaunchInfoViewProtocol
-protocol RocketLaunchInfoViewProtocol: AnyObject {
-    func viewDidLoadFromPresenter(rocketLaunch: RocketLaunch, missionNameText: String, dateText: String, image: UIImage?)
-    func updateButtonAvailability(for rocketLaunch: RocketLaunch)
+protocol RocketLaunchInfoViewProtocol: AnyObject, RocketLaunchInfoViewInputProtocol, RamblerViperModuleTransitionHandlerProtocol {
+  func viewDidLoadFromOutput(rocketLaunch: RocketLaunch, missionNameText: String, dateText: String, image: UIImage?)
+  func updateButtonAvailability(for rocketLaunch: RocketLaunch)
 }

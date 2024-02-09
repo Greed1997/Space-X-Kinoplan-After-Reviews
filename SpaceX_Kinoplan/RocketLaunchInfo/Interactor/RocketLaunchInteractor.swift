@@ -7,6 +7,6 @@
 
 import Foundation
 
-final class RocketLaunchInteractor {
-  
-}
+//final class RocketLaunchInfoInteractor: Rock {
+//  
+//}
