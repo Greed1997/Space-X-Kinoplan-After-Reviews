@@ -7,13 +7,27 @@
 
 import ViperMcFlurry
 
-//MAKR: - RocketLaunchInfoRouter
+//MARK: - RocketLaunchInfoRouter
 final class RocketLaunchInfoRouter: RocketLaunchInfoRouterProtocol {
   
+  // MARK: - Connections
   weak var transitionHandler: RamblerViperModuleTransitionHandlerProtocol?
   
-//  var listOfRocketLaunchesAssemblyProtocol: ListOfRocketsLaunchesAssemblyProtocol?
-//
+  // MARK: - Pop to root
+  func popToRoot() {
+    transitionHandler?.closeCurrentModule?(true)
+  }
   
+  func showFlickerImagesVC(rocketLaunchInfo: RocketLaunchInfo) {
+    let factory = ListOfFlickerImagesAssembly(rocketLaunchInfo: rocketLaunchInfo)
+    
+    transitionHandler?.openModule?(usingFactory: factory, withTransitionBlock: { sourceModuleTransitionHandler, destinationModuleTransititionHandler in
+      guard let sourceVC = sourceModuleTransitionHandler as? UIViewController,
+            let destinationVC = destinationModuleTransititionHandler as? UIViewController else { return }
+      sourceVC.navigationController?.pushViewController(destinationVC, animated: true)
+    }).thenChain({ test in
+      return nil
+    })
+  }
   
 }

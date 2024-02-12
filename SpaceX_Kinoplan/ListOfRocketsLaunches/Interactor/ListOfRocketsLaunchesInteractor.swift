@@ -8,16 +8,31 @@
 import Foundation
 
 // MARK: - ListOfRocketsLaunchesInteractor
+
 final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInputProtocol {
   
-  // MARK: - Properties
-  var rocketLaunches: [RocketLaunch]? = nil
-  // MARK: - Services
-  var networkService: NetworkServiceProtocol? = nil
-  var cacheStorage: CacheStorageProtocol? = nil
-  
   // MARK: - Connections
+  
   weak var output: ListOfRocketsLaunchesInteractorOutputProtocol?
+  
+  // MARK: - Services
+  
+  private var networkService: NetworkServiceProtocol
+  private var cacheStorage  : KingFisherImageCacheStorage
+  
+  // MARK: - Properties
+  
+  var rocketLaunches: [RocketLaunch]? = []
+  
+  // MARK: -
+
+  init(
+    networkService: NetworkServiceProtocol,
+    cacheStorage: KingFisherImageCacheStorage
+  ) {
+    self.networkService = networkService
+    self.cacheStorage = cacheStorage
+  }
   
   // MARK: - Init
 //  required init(networkService: NetworkServiceProtocol, cacheStorage: CacheStorageProtocol) {
@@ -29,7 +44,7 @@ final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInpu
   // MARK: - Interactor input protocol methods
   // Fetch data for all rocket launches
   func fetchData() {
-    networkService?.fetchData(from: "https://api.spacexdata.com/v3/launches") { [weak self] result in
+    networkService.fetchData(from: "https://api.spacexdata.com/v3/launches") { [weak self] (result: Result<[RocketLaunch], RocketError>) in
       guard let self = self else { return }
       switch result {
       case .success(let rocketLaunches):
@@ -40,11 +55,5 @@ final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInpu
       }
     }
   }
-  
-  // Choose rocket launch
-  func getNeededRocketLaunch(index: Int) {
-    guard let rocketLaunches = rocketLaunches else { return }
-    output?.goToRocketLaunchVC(rocketLaunch: rocketLaunches[index])
-  }
-  
+
 }

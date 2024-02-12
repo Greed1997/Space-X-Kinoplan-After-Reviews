@@ -7,25 +7,31 @@
 
 import Foundation
 
-protocol ListOfFlickerImagesViewProtocol: AnyObject {
-    func reloadCollectionView(flickerImagesUrlString: [String])
-    func setTitleVC(title: String)
-}
-class ListOfFlickerImagesPresenter: ListOfFlickerImagesPresenterProtocol {
+// MARK: - ListOfFlickerImagesPresenter
+final class ListOfFlickerImagesPresenter: ListOfFlickerImagesViewOutputProtocol {
+  
+  // MARK: - Properties
+  let rocketLaunchInfo: RocketLaunchInfo?
+  
+  // MARK: - Connections
+  var router: ListOfFlickerImagesRouterProtocol?
+  weak var view: ListOfFlickerImagesViewInputProtocol?
+  
+  // MARK: - Init
+  required init(view: ListOfFlickerImagesViewInputProtocol, router: ListOfFlickerImagesRouterProtocol, rocketLaunchInfo: RocketLaunchInfo?) {
+    self.view = view
+    self.rocketLaunchInfo = rocketLaunchInfo
+    self.router = router
+  }
+  
+  // MARK: - View did load
+  func viewDidLoad() {
+    guard let missionName = rocketLaunchInfo?.missionName else { return }
+    guard let flickerImages = rocketLaunchInfo?.links?.flickrImages else { return }
     
-    let rocketLaunch: RocketLaunch!
-//    var router: RouterProtocol?
-    weak var view: ListOfFlickerImagesViewProtocol?
-    func viewDidLoad() {
-        guard let missionName = rocketLaunch.missionName else { return }
-//        guard let flickerImages = rocketLaunch.links?.flickrImages else { return }
-        view?.setTitleVC(title: missionName)
-//        view?.reloadCollectionView(flickerImagesUrlString: flickerImages)
-    }
-
-    required init(view: ListOfFlickerImagesViewProtocol,/* router: RouterProtocol,*/ rocketLaunch: RocketLaunch) {
-        self.view = view
-//        self.router = router
-        self.rocketLaunch = rocketLaunch
-    }
+    view?.setTitleVC(title: missionName)
+    view?.reloadCollectionView(flickerImagesUrlString: flickerImages)
+  }
+  
+  
 }

@@ -14,6 +14,7 @@ final class ListOfRocketsLaunchesViewController: UIViewController {
   enum Section: Int, CaseIterable {
     case rocketLaunchesInfo
   }
+  
   // MARK: - Collections
   var output: ListOfRocketsLaunchesViewOutputProtocol?
   
@@ -24,10 +25,12 @@ final class ListOfRocketsLaunchesViewController: UIViewController {
   // MARK: - ViewDidLoad()
   override func viewDidLoad() {
     super.viewDidLoad()
-    output?.viewDidLoad()
+    
     setupCollectionView()
     setupAppearance()
     createDataSource()
+    
+    output?.viewDidLoad()
   }
 }
 // MARK: - Setup collection view

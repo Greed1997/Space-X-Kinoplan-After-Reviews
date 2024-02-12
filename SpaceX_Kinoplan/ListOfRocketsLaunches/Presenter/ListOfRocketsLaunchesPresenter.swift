@@ -11,22 +11,39 @@ import Foundation
 final class ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesViewOutputProtocol {
   
   // MARK: - Connections
-  weak var view: ListOfRocketsLaunchesViewInputProtocol?
-  var interactor: ListOfRocketsLaunchesInteractorInputProtocol?
-  var router: ListOfRocketsLaunchesRouterInputProtocol?
+  
+  weak private var view: ListOfRocketsLaunchesViewInputProtocol?
+  private var interactor: ListOfRocketsLaunchesInteractorInputProtocol
+  private var router: ListOfRocketsLaunchesRouterInputProtocol
+  
+  // MARK: - Init
+  
+  init(
+    view: ListOfRocketsLaunchesViewInputProtocol?,
+    interactor: ListOfRocketsLaunchesInteractorInputProtocol,
+    router: ListOfRocketsLaunchesRouterInputProtocol
+  ) {
+    self.view = view
+    self.interactor = interactor
+    self.router = router
+  }
   
   // MARK: - View Output Methods
   func viewDidLoad() {
-    interactor?.fetchData()
+    interactor.fetchData()
   }
   
   func getSelectedRocketLaunch(index: Int) {
-    interactor?.getNeededRocketLaunch(index: index)
+    router.showRocketLaunchInfo(with: index)
   }
   
 }
 // MARK: - Interactor output methods
 extension ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesInteractorOutputProtocol {
+  
+  func goToRocketLaunchVC(index: Int) {
+    router.showRocketLaunchInfo(with: index)
+  }
   
   func dataFetched(rocketLaunches: [RocketLaunch]) {
     var rocketLaunchCellModels: [RocketLaunchCellModel] = []
@@ -46,8 +63,4 @@ extension ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesInteractorOutputP
     view?.reloadCollectionView(rocketLaunchCellModels: rocketLaunchCellModels) // rocketLaunches = rocketLaunchCellModels
   }
   
-  func goToRocketLaunchVC(rocketLaunch: RocketLaunch) {
-    //        router?.goToRocketLaunchInfoVC(rocketLaunch: rocketLaunch)
-    router?.showRocketLaunchInfo(with: rocketLaunch)
-  }
 }

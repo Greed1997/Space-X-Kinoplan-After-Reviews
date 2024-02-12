@@ -18,9 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window = UIWindow(windowScene: windowScene)
     let navigationController = UINavigationController()
     let listOfRocketLaunchesAssembly = ListOfRocketsLaunchesAssembly()
-    let listRocketLaunchesViewController = ListOfRocketsLaunchesViewController()
-    listOfRocketLaunchesAssembly.createListOfRocketsLaunchesModule(vc: listRocketLaunchesViewController)
-    navigationController.viewControllers = [listRocketLaunchesViewController]
+    //let listRocketLaunchesViewController = ListOfRocketsLaunchesViewController() -> Здесь находится объект с отсутствующими сильными ссылками на него и поэтому эта строчка кода вызывает ошибка, так как сразу при инициализации данного объекта происходит его удаление из памяти и скорее всего это приводит к ран таймого ошибке в этом протоколе
+    let listRocketLaunchesViewController = listOfRocketLaunchesAssembly.instantiateModuleTransitionHandler()
+//    listOfRocketLaunchesAssembly.createListOfRocketsLaunchesModule(vc: listRocketLaunchesViewController)
+    navigationController.viewControllers = [listRocketLaunchesViewController as! UIViewController]
     window?.rootViewController = navigationController
     
     window?.makeKeyAndVisible()

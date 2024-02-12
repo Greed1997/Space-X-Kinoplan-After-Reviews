@@ -5,24 +5,25 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import UIKit
 import ViperMcFlurry
 
 // MARK: - RocketLaunchInfoViewInputProtocol
 protocol RocketLaunchInfoViewInputProtocol: AnyObject {
-  
+  func viewDidLoadFromOutput(missionNameText: String, missionPatchURL: URL, dateText: String, rocketLaunchInfo: RocketLaunchInfo)
+  func updateButtonAvailability(for rocketLaunchInfo: RocketLaunchInfo)
 }
 // MARK: - RocketLaunchInfoViewOutputProtocol
 protocol RocketLaunchInfoOutputProtocol: AnyObject {
-    func viewDidLoad()
-    func youtubeButtonTapped()
-    func wikiButtonTapped()
-    func redditButtonTapped()
-    func articleButtonTapped()
-    func flickerImagesButtonTapped()
+  init(router: RocketLaunchInfoRouterProtocol, view: RocketLaunchInfoViewInputProtocol)
+  func viewDidLoad()
+  func youtubeButtonTapped()
+  func wikiButtonTapped()
+  func redditButtonTapped()
+  func articleButtonTapped()
+  func flickerImagesButtonTapped()
+  func popToRoot()
 }
 // MARK: - RocketLaunchInfoViewProtocol
 protocol RocketLaunchInfoViewProtocol: AnyObject, RocketLaunchInfoViewInputProtocol, RamblerViperModuleTransitionHandlerProtocol {
-  func viewDidLoadFromOutput(rocketLaunch: RocketLaunch, missionNameText: String, dateText: String, image: UIImage?)
-  func updateButtonAvailability(for rocketLaunch: RocketLaunch)
+  var output: RocketLaunchInfoOutputProtocol? { get set }
 }

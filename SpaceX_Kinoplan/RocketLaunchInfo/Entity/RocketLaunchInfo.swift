@@ -31,6 +31,7 @@ struct RockeLaunchInfoLinks: Decodable, Hashable {
   let videoLink: String?
   let youtubeId: String?
   let articleLink: String?
+  let flickrImages: [String]?
   
   // MARK: - CodingKeys
   enum CodingKeys: String, CodingKey {
@@ -40,5 +41,6 @@ struct RockeLaunchInfoLinks: Decodable, Hashable {
     case videoLink = "video_link"
     case youtubeId = "youtube_id"
     case articleLink = "article_link"
+    case flickrImages = "flickr_images"
   }
 }

@@ -10,17 +10,28 @@ import ViperMcFlurry
 // MARK: - RocketLaunchInfoAssembly
 final class RocketLaunchInfoAssembly: NSObject, RamblerViperModuleFactoryProtocol {
   
+  // MARK: - Properties
+  let index: Int?
+  
+  // MARK: - Init
+  init(index: Int? = nil) {
+    self.index = index
+  }
+  
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
+    let networkService = NetworkService()
+    
     let vc = RocketLaunchInfoViewController()
     let router = RocketLaunchInfoRouter()
-    let presenter = RocketLaunchInfoPresenter()
-    //    let interactor = RocketLaunchInteractor()
+    let presenter = RocketLaunchInfoPresenter(router: router, view: vc)
+    let interactor = RocketLaunchInfoInteractor(output: presenter, networkService: networkService)
     
-    presenter.router = router
-    presenter.view = vc
-    
+//    presenter.router = router
+    // Изменить сувание по аналогии с ListOfRocket
+    vc.output = presenter
+    presenter.index = index
+    presenter.interactor = interactor
     router.transitionHandler = vc
-    
     return vc
   }
   

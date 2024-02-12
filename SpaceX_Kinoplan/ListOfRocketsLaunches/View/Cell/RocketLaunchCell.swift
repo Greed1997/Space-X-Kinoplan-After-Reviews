@@ -33,8 +33,8 @@ final class RocketLaunchCell: UICollectionViewCell, SelfConfiguringCell {
     label.font = UIFont.boldSystemFont(ofSize: 16)
     return label
   }()
-  private lazy var missionPatchImageView: RocketLauncheImageView = {
-    let imageView = RocketLauncheImageView()
+  private lazy var missionPatchImageView: UIImageView = {
+    let imageView = UIImageView()
     return imageView
   }()
   private lazy var dateLabel: UILabel = {
@@ -52,6 +52,8 @@ final class RocketLaunchCell: UICollectionViewCell, SelfConfiguringCell {
     super.layoutSubviews()
     layer.cornerRadius = 10
     layer.masksToBounds = true
+    missionPatchImageView.layer.cornerRadius = 10
+    missionPatchImageView.layer.masksToBounds = true
   }
   
   // MARK: - Init
@@ -70,7 +72,13 @@ final class RocketLaunchCell: UICollectionViewCell, SelfConfiguringCell {
     guard let value = value as? RocketLaunchCellModel else { return }
     missionNameLabel.text = value.missionName
     dateLabel.text = value.missionDate
-    missionPatchImageView.kf.setImage(with: value.missionPatchImageViewURL)
+    missionPatchImageView.kf.setImage(with: value.missionPatchImageViewURL,
+                                      placeholder: UIImage(named: "Cosmos"),
+                                      options: [
+                                        .scaleFactor(contentScaleFactor),
+                                        .transition(.fade(1)),
+                                        .cacheOriginalImage
+                                      ])
   }
 }
 // MARK: - Setup cell content

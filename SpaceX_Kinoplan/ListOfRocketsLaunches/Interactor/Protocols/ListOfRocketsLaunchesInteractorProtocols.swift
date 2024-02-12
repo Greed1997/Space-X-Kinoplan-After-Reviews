@@ -11,11 +11,10 @@ import Foundation
 protocol ListOfRocketsLaunchesInteractorInputProtocol: AnyObject {
 //  init(networkService: NetworkServiceProtocol, cacheStorage: CacheStorageProtocol)
   func fetchData()
-  func getNeededRocketLaunch(index: Int)
 }
 
 // MARK: - ListOfRocketsLaunchesInteractorOutputProtocol
 protocol ListOfRocketsLaunchesInteractorOutputProtocol: AnyObject {
   func dataFetched(rocketLaunches: [RocketLaunch])
-  func goToRocketLaunchVC(rocketLaunch: RocketLaunch)
+  func goToRocketLaunchVC(index: Int)
 }

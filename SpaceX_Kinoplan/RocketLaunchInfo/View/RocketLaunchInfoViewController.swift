@@ -7,61 +7,71 @@
 
 import ViperMcFlurry
 import SnapKit
+import Kingfisher
 
 // MARK: - RocketLaunchInfoViewController
 final class RocketLaunchInfoViewController: UIViewController {
   
+  // MARK: - Connections
+  var output: RocketLaunchInfoOutputProtocol?
+  
+ 
   // MARK: - UI properties
-  let stackView = UIStackView()
+  private let stackView = UIStackView()
   private lazy var missionNameLabel: UILabel = {
     let label = UILabel()
     label.numberOfLines = 0
     label.textAlignment = .center
     label.layer.cornerRadius = 10
     label.font = UIFont.boldSystemFont(ofSize: 20)
-    label.backgroundColor = view.backgroundColor
     label.textColor = .black
     return label
   }()
-  private lazy var missionPatchImageView: RocketLauncheImageView = {
-    let imageView = RocketLauncheImageView()
+  
+  private lazy var missionPatchImageView: UIImageView = {
+    let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     return imageView
   }()
+  
   private lazy var dateLabel: UILabel = {
     let label = UILabel()
     label.numberOfLines = 0
     label.textAlignment = .center
     label.layer.cornerRadius = 10
     label.font = UIFont.systemFont(ofSize: 18)
-    label.backgroundColor = view.backgroundColor
     label.textColor = .black
     return label
   }()
+  
   private lazy var youtubeVideoLinkButton: UIButton = {
     let button = UIButton(type: .system)
     button.setTitle("Youtube", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
     return button
   }()
+  
   private lazy var wikipediaLinkButton: UIButton = {
     let button = UIButton(type: .system)
     button.setTitle("Wikipedia", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
     return button
   }()
+  
   private lazy var redditLinkButton: UIButton = {
     let button = UIButton(type: .system)
     button.setTitle("Reddit", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
     return button
   }()
+  
   private lazy var articleLinkButton: UIButton = {
     let button = UIButton(type: .system)
     button.setTitle("Article", for: .normal)
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
     return button
   }()
+  
   private lazy var flickrImagesButton: UIButton = {
     let button = UIButton(type: .system)
     button.setTitle("Go to see images", for: .normal)
@@ -69,9 +79,15 @@ final class RocketLaunchInfoViewController: UIViewController {
     return button
   }()
   
-  // MARK: - Connections
-  var output: RocketLaunchInfoOutputProtocol?
-  
+  private lazy var newBackLeftBarButtonItem: UIBarButtonItem = {
+    let backButton = UIButton(type: .system)
+    backButton.setTitle("Back", for: .normal)
+    backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+    backButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+    backButton.addTarget(self, action: #selector(backButtonItemButtonTapped), for: .touchUpInside)
+    backButton.semanticContentAttribute = .forceRightToLeft
+    return UIBarButtonItem(customView: backButton)
+  }()
   // MARK: - viewDidLoad()
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -90,6 +106,8 @@ final class RocketLaunchInfoViewController: UIViewController {
     setupAppearance()
     setupBehaviour()
     output?.viewDidLoad()
+
+    navigationItem.leftBarButtonItem = newBackLeftBarButtonItem
   }
 }
 // MARK: - Setup view content
@@ -115,8 +133,8 @@ private extension RocketLaunchInfoViewController {
   // MARK: - Setup layout
   func setupLayout() {
     stackView.snp.makeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.centerY.equalToSuperview()
+      make.top.equalToSuperview().inset(-16)
+      make.center.equalToSuperview()
       make.width.lessThanOrEqualToSuperview().offset(-16)
       make.height.lessThanOrEqualToSuperview().offset(-16)
     }
@@ -132,6 +150,8 @@ private extension RocketLaunchInfoViewController {
   // MARK: - Setup appearance
   func setupAppearance() {
     view.backgroundColor = .darkGray
+    missionNameLabel.backgroundColor = .darkGray
+    dateLabel.backgroundColor = .darkGray
   }
   
   // MARK: - Setup behavior
@@ -166,34 +186,31 @@ private extension RocketLaunchInfoViewController {
   func goTolistOfFlickerImagesVC() {
     output?.flickerImagesButtonTapped()
   }
+  @objc
+  func backButtonItemButtonTapped() {
+    output?.popToRoot()
+  }
 }
 // MARK: - RocketLaunchInfoViewProtocol
 extension RocketLaunchInfoViewController: RocketLaunchInfoViewProtocol {
-  
-  func viewDidLoadFromOutput(rocketLaunch: RocketLaunch, 
-                             missionNameText: String,
-                             dateText: String,
-                             image: UIImage?) {
-    updateButtonAvailability(for: rocketLaunch)
-    missionNameLabel.text = missionNameText
-    dateLabel.text = dateText
-    missionPatchImageView.image = image
-  }
-  func updateButtonAvailability(for rocketLaunch: RocketLaunch) {
-    //        youtubeVideoLinkButton.isHidden = rocketLaunch.links?.youtubeId == nil
-    //        wikipediaLinkButton.isHidden = rocketLaunch.links?.wikipedia == nil
-    //        redditLinkButton.isHidden = rocketLaunch.links?.redditLaunch == nil
-    //        articleLinkButton.isHidden = rocketLaunch.links?.articleLink == nil
-    //        if rocketLaunch.links?.flickrImages == Optional([]) || rocketLaunch.links?.flickrImages == nil {
-    //            flickrImagesButton.isHidden = true
-    //        } else {
-    //            flickrImagesButton.isHidden = false
-    //        }
-    //        if rocketLaunch.links?.missionPatch == nil || rocketLaunch.links?.missionPatch == "" {
-    //            missionPatchImageView.isHidden = true
-    //        } else {
-    //            missionPatchImageView.isHidden = false
-    //        }
-    //        print(rocketLaunch.links?.missionPatch ?? 1234)
+  func viewDidLoadFromOutput(
+    missionNameText: String,
+    missionPatchURL: URL,
+    dateText: String,
+    rocketLaunchInfo: RocketLaunchInfo) {
+      missionNameLabel.text = missionNameText
+      dateLabel.text = dateText
+      missionPatchImageView.kf.setImage(with: missionPatchURL)
+      updateButtonAvailability(for: rocketLaunchInfo)
+    }
+  // MARK: - Is hidden ui elements
+  func updateButtonAvailability(for rocketLaunchInfo: RocketLaunchInfo) {
+    youtubeVideoLinkButton.isHidden = rocketLaunchInfo.links?.youtubeId == nil
+    wikipediaLinkButton.isHidden = rocketLaunchInfo.links?.wikipedia == nil
+    redditLinkButton.isHidden = rocketLaunchInfo.links?.redditLaunch == nil
+    articleLinkButton.isHidden = rocketLaunchInfo.links?.articleLink == nil
+    }
+  func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
+    return self
   }
 }

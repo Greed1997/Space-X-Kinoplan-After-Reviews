@@ -5,33 +5,16 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - RocketLaunchInteractorInputProtocol
-protocol RocketLaunchInteractorInputProtocol: AnyObject {
-  init(output: RocketLaunchInteractorOutputProtocol, networkService: NetworkServiceProtocol, cacheStorage: CacheStorageProtocol)
+protocol RocketLaunchInfoInteractorInputProtocol: AnyObject {
+  init(output: RocketLaunchInfoInteractorOutputProtocol, networkService: NetworkServiceProtocol)
+  func fetchNeededRocketLaunchInfo(for index: Int)
+  
 }
 
 // MARK: - RocketLaunchInteractorOutputProtocol
-protocol RocketLaunchInteractorOutputProtocol: AnyObject {
-  
-}
-// MARK: - RocketLaunchInfoInteractor
-final class RocketLaunchInfoInteractor: RocketLaunchInteractorInputProtocol {
-  
-  // MARK: - Properties
-  let networkService: NetworkServiceProtocol!
-  let cacheStorage: CacheStorageProtocol!
-  
-  // MARK: - Connections
-  weak var output: RocketLaunchInteractorOutputProtocol?
-  
-  // MARK: - Init
-  init(output: RocketLaunchInteractorOutputProtocol, networkService: NetworkServiceProtocol, cacheStorage: CacheStorageProtocol) {
-    self.output = output
-    self.networkService = networkService
-    self.cacheStorage = cacheStorage
-  }
-  
-  
+protocol RocketLaunchInfoInteractorOutputProtocol: AnyObject {
+  func dataFetched(rocketLaunchInfo: RocketLaunchInfo)
 }

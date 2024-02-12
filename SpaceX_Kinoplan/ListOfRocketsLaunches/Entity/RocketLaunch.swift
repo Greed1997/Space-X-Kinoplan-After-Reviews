@@ -27,9 +27,21 @@ struct RocketLaunchLinks: Decodable, Hashable {
   
   // MARK: - Properties
   let missionPatch: String?
+  let redditLaunch: String?
+  let wikipedia: String?
+  let videoLink: String?
+  let youtubeId: String?
+  let articleLink: String?
+  let flickrImages: [String]?
   
   // MARK: - CodingKeys
   enum CodingKeys: String, CodingKey {
     case missionPatch = "mission_patch"
+    case redditLaunch = "reddit_launch"
+    case wikipedia = "wikipedia"
+    case videoLink = "video_link"
+    case youtubeId = "youtube_id"
+    case articleLink = "article_link"
+    case flickrImages = "flickr_images"
   }
 }

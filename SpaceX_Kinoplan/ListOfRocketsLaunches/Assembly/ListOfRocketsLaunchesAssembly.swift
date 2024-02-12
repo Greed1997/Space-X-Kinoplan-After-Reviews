@@ -5,27 +5,34 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import UIKit
+import ViperMcFlurry
 
-// MARK: - ListOfRocketsLaunchesAssembly
-final class ListOfRocketsLaunchesAssembly: ListOfRocketsLaunchesAssemblyProtocol {
-  func createListOfRocketsLaunchesModule(vc: ListOfRocketLaunchesViewProtocol) {
-    let networkService = NetworkService()
-//    let cacheStorage = CacheStorage()
+final class ListOfRocketsLaunchesAssembly: NSObject, RamblerViperModuleFactoryProtocol {
+  
+  func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
+    let viewController = ListOfRocketsLaunchesViewController()
+    
     let router = ListOfRocketsLaunchesRouter()
-    let presenter = ListOfRocketsLaunchesPresenter()
-    let interactor = ListOfRocketsLaunchesInteractor()
+    router.transitionHandler = viewController
     
-    presenter.router = router
-    presenter.view = vc
-    presenter.interactor = interactor
+    let networkService = NetworkService()
+    let cacheStorage = KingFisherImageCacheStorage()
     
+    let interactor = ListOfRocketsLaunchesInteractor(
+      networkService: networkService,
+      cacheStorage: cacheStorage
+    )
+    
+    let presenter = ListOfRocketsLaunchesPresenter(
+      view: viewController,
+      interactor: interactor,
+      router: router
+    )
+    
+    viewController.output = presenter
     interactor.output = presenter
-    interactor.networkService = networkService
     
-    vc.output = presenter
-    
-    router.transitionHandler = vc
-    router.assemblyBuilderRocketLaunchInfo = RocketLaunchInfoAssembly()
+    return viewController
   }
+  
 }

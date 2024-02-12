@@ -6,24 +6,41 @@
 //
 
 import UIKit
+import Kingfisher
 
-protocol CacheStorageProtocol: AnyObject {
-    func saveDataToCache(with data: Data, and response: URLResponse)
-    func getCachedImage(from url: URL) -> UIImage?
+// MARK: - KingFisherImageCacheStorageProtocol
+protocol KingFisherImageCacheStorageProtocol: AnyObject {
+  func getCachedImage(forKey urlString: String, completion: @escaping (UIImage?) -> Void)
+  func saveImageToCache(image: UIImage?, with key: String)
 }
-final class CacheStorage: CacheStorageProtocol {
-    func saveDataToCache(with data: Data, and response: URLResponse) {
-        guard let url = response.url else { return }
-        let request = URLRequest(url: url)
-        let cachedResponse = CachedURLResponse(response: response, data: data)
-        URLCache.shared.storeCachedResponse(cachedResponse, for: request)
+
+// MARK: - KingFisherImageCacheStorage
+final class KingFisherImageCacheStorage: KingFisherImageCacheStorageProtocol {
+  
+  // MARK: - Save to cache
+  func saveImageToCache(image: UIImage?, with key: String) {
+    getCachedImage(forKey: key) { image in
+      if let image {
+        let cache = ImageCache.default
+        cache.memoryStorage.config.expiration = .days(1)
+        cache.store(image, forKey: key)
+      }
     }
-    
-    func getCachedImage(from url: URL) -> UIImage? {
-        let request = URLRequest(url: url)
-        if let cachedResponse = URLCache.shared.cachedResponse(for: request) {
-            return UIImage(data: cachedResponse.data)
-        }
-        return nil
+  }
+  
+  // MARK: - Get from cache
+  func getCachedImage(forKey urlString: String, completion: @escaping (UIImage?) -> Void) {
+    guard let url = URL(string: urlString) else {
+      completion(nil)
+      return }
+    let resource = KF.ImageResource(downloadURL: url)
+    KingfisherManager.shared.retrieveImage(with: resource) { result in
+      switch result {
+      case .success(let value):
+        completion(value.image)
+      case .failure(_):
+        completion(nil)
+      }
     }
+  }
 }
