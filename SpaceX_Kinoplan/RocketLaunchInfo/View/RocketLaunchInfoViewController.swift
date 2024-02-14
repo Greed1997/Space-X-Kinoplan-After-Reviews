@@ -10,151 +10,176 @@ import SnapKit
 import Kingfisher
 
 // MARK: - RocketLaunchInfoViewController
+
 final class RocketLaunchInfoViewController: UIViewController {
   
   // MARK: - Connections
+  
   var output: RocketLaunchInfoOutputProtocol?
   
- 
+  // MARK: - Properties
+  
+  var rocketLaunchInfoViewModel: RocketLaunchInfoViewModel!
+  
   // MARK: - UI properties
-  private let stackView = UIStackView()
-  private lazy var missionNameLabel: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 0
-    label.textAlignment = .center
-    label.layer.cornerRadius = 10
-    label.font = UIFont.boldSystemFont(ofSize: 20)
-    label.textColor = .black
-    return label
-  }()
   
-  private lazy var missionPatchImageView: UIImageView = {
-    let imageView = UIImageView()
-    imageView.contentMode = .scaleAspectFill
-    return imageView
-  }()
+  // General info
   
-  private lazy var dateLabel: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 0
-    label.textAlignment = .center
-    label.layer.cornerRadius = 10
-    label.font = UIFont.systemFont(ofSize: 18)
-    label.textColor = .black
-    return label
-  }()
+  private let missionNameLabel = UILabel()
   
-  private lazy var youtubeVideoLinkButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("Youtube", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-    return button
-  }()
+  private let missionPatchImageView = UIImageView()
   
-  private lazy var wikipediaLinkButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("Wikipedia", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-    return button
-  }()
+  private let dateLabel = UILabel()
   
-  private lazy var redditLinkButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("Reddit", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-    return button
-  }()
+  // Links
   
-  private lazy var articleLinkButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("Article", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-    return button
-  }()
+  private let youtubeVideoLinkButton = UIButton(type: .system)
   
-  private lazy var flickrImagesButton: UIButton = {
-    let button = UIButton(type: .system)
-    button.setTitle("Go to see images", for: .normal)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-    return button
-  }()
+  private let wikipediaLinkButton = UIButton(type: .system)
   
-  private lazy var newBackLeftBarButtonItem: UIBarButtonItem = {
-    let backButton = UIButton(type: .system)
-    backButton.setTitle("Back", for: .normal)
-    backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-    backButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-    backButton.addTarget(self, action: #selector(backButtonItemButtonTapped), for: .touchUpInside)
-    backButton.semanticContentAttribute = .forceRightToLeft
-    return UIBarButtonItem(customView: backButton)
-  }()
+  private let redditLinkButton = UIButton(type: .system)
+  
+  private let articleLinkButton = UIButton(type: .system)
+  
+  private let flickrImagesButton = UIButton(type: .system)
+  
+  // Back button
+  
+  private let backButton = UIButton(type: .system)
+  
+  private lazy var newBackLeftBarButtonItem = UIBarButtonItem(customView: backButton)
+  
+  
   // MARK: - viewDidLoad()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
-    setupStackView(subviews:
+    
+    embedSubviews(subviews:
                     missionNameLabel,
-                   missionPatchImageView,
-                   dateLabel,
-                   youtubeVideoLinkButton,
-                   wikipediaLinkButton,
-                   redditLinkButton,
-                   articleLinkButton,
-                   flickrImagesButton
-    )
+                  missionPatchImageView,
+                  dateLabel,
+                  youtubeVideoLinkButton,
+                  wikipediaLinkButton,
+                  redditLinkButton,
+                  articleLinkButton,
+                  flickrImagesButton)
+    
     setupLayout()
     setupAppearance()
     setupBehaviour()
+    
     output?.viewDidLoad()
-
-    navigationItem.leftBarButtonItem = newBackLeftBarButtonItem
+    
+    
   }
 }
 // MARK: - Setup view content
+
 private extension RocketLaunchInfoViewController {
-  // MARK: - Setup stackview
-  func setupStackView(subviews: UIView...) {
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.axis = .vertical
-    stackView.alignment = .center
-    stackView.spacing = CGFloat(view.frame.height / 20)
-    embedSubviews(for: stackView, add: subviews)
-    
-    view.addSubview(stackView)
-  }
   
   // MARK: - Embed subviews for stackView
-  func embedSubviews(for stackView: UIStackView, add subviews: [UIView]) {
+  
+  func embedSubviews(subviews: UIView...) {
     subviews.forEach { subview in
-      stackView.addArrangedSubview(subview)
+      view.addSubview(subview)
     }
   }
   
   // MARK: - Setup layout
+  
   func setupLayout() {
-    stackView.snp.makeConstraints { make in
-      make.top.equalToSuperview().inset(-16)
-      make.center.equalToSuperview()
-      make.width.lessThanOrEqualToSuperview().offset(-16)
-      make.height.lessThanOrEqualToSuperview().offset(-16)
+    
+    missionNameLabel.snp.makeConstraints { make in
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+      make.width.equalTo(view.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
+      make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
     }
+    
     missionPatchImageView.snp.makeConstraints { make in
+      make.top.equalTo(missionNameLabel.snp.bottom).offset(view.frame.height / 10)
+      make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
       make.height.equalToSuperview().multipliedBy(0.15)
       make.width.equalTo(view.snp.height).multipliedBy(0.15)
     }
-    missionNameLabel.snp.makeConstraints { make in
-      make.width.equalTo(stackView.snp.width).multipliedBy(0.8)
+    
+    youtubeVideoLinkButton.snp.makeConstraints { make in
+      make.top.equalTo(missionPatchImageView.snp.bottom).offset(15)
+      make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
     }
+    
+    wikipediaLinkButton.snp.makeConstraints { make in
+      make.top.equalTo(youtubeVideoLinkButton.snp.bottom).offset(15)
+      make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+    }
+    
+    redditLinkButton.snp.makeConstraints { make in
+      make.top.equalTo(wikipediaLinkButton.snp.bottom).offset(15)
+      make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+    }
+    
+    articleLinkButton.snp.makeConstraints { make in
+      make.top.equalTo(redditLinkButton.snp.bottom).offset(15)
+      make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+    }
+    
+    flickrImagesButton.snp.makeConstraints { make in
+      make.top.equalTo(articleLinkButton.snp.bottom).offset(15)
+      make.centerX.equalTo(view.safeAreaLayoutGuide.snp.centerX)
+    }
+    
   }
   
   // MARK: - Setup appearance
+  
   func setupAppearance() {
+    
     view.backgroundColor = .darkGray
-    missionNameLabel.backgroundColor = .darkGray
-    dateLabel.backgroundColor = .darkGray
+    
+    missionNameLabel.numberOfLines      = 0
+    missionNameLabel.textAlignment      = .center
+    missionNameLabel.layer.cornerRadius = 10
+    missionNameLabel.font               = UIFont.boldSystemFont(ofSize: 20)
+    missionNameLabel.textColor          = .black
+    missionNameLabel.backgroundColor    = .darkGray
+    
+    missionPatchImageView.contentMode = .scaleAspectFill
+    
+    
+    dateLabel.backgroundColor    = .darkGray
+    dateLabel.numberOfLines      = 0
+    dateLabel.textAlignment      = .center
+    dateLabel.layer.cornerRadius = 10
+    dateLabel.font               = UIFont.systemFont(ofSize: 18)
+    dateLabel.textColor          = .black
+    
+    youtubeVideoLinkButton.setTitle("Youtube", for: .normal)
+    youtubeVideoLinkButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+    
+    wikipediaLinkButton.setTitle("Wikipedia", for: .normal)
+    wikipediaLinkButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+    
+    redditLinkButton.setTitle("Reddit", for: .normal)
+    redditLinkButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+    
+    articleLinkButton.setTitle("Article", for: .normal)
+    articleLinkButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+    
+    flickrImagesButton.setTitle("Go to see images", for: .normal)
+    flickrImagesButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+    
+    backButton.setTitle("Back", for: .normal)
+    backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+    backButton.addTarget(self, action: #selector(backButtonItemButtonTapped), for: .touchUpInside)
+    backButton.titleLabel?.font         = UIFont.systemFont(ofSize: 18)
+    backButton.semanticContentAttribute = .forceRightToLeft
+    
+    navigationItem.leftBarButtonItem = newBackLeftBarButtonItem
   }
   
   // MARK: - Setup behavior
+  
   func setupBehaviour() {
     youtubeVideoLinkButton.addTarget(self, action: #selector(openYoutubeVideo), for: .touchUpInside)
     wikipediaLinkButton.addTarget(self, action: #selector(openWikipediaInfo), for: .touchUpInside)
@@ -164,7 +189,8 @@ private extension RocketLaunchInfoViewController {
   }
 }
 
-// MARK: - Objc button methods
+// MARK: - Objc buttons methods
+
 private extension RocketLaunchInfoViewController {
   @objc
   func openYoutubeVideo() {
@@ -192,24 +218,71 @@ private extension RocketLaunchInfoViewController {
   }
 }
 // MARK: - RocketLaunchInfoViewProtocol
+
 extension RocketLaunchInfoViewController: RocketLaunchInfoViewProtocol {
-  func viewDidLoadFromOutput(
-    missionNameText: String,
-    missionPatchURL: URL,
-    dateText: String,
-    rocketLaunchInfo: RocketLaunchInfo) {
-      missionNameLabel.text = missionNameText
-      dateLabel.text = dateText
-      missionPatchImageView.kf.setImage(with: missionPatchURL)
-      updateButtonAvailability(for: rocketLaunchInfo)
+  
+  func viewDidLoadFromOutput(rocketLaunchInfoViewModel: RocketLaunchInfoViewModel) {
+    missionNameLabel.text = rocketLaunchInfoViewModel.missionName
+    dateLabel.text        = rocketLaunchInfoViewModel.missionDate
+    missionPatchImageView.kf.setImage(with: rocketLaunchInfoViewModel.missionPatchImageViewURL)
+    updateButtonAvailability(for: rocketLaunchInfoViewModel)
+    updateButtonConstraints(for: rocketLaunchInfoViewModel)
+  }
+  
+  // MARK: - Hide/unhide UI elements
+  
+  func updateButtonAvailability(for rocketLaunchInfoViewModel: RocketLaunchInfoViewModel) {
+    youtubeVideoLinkButton.isHidden = rocketLaunchInfoViewModel.youtubeLink == nil
+    wikipediaLinkButton.isHidden    = rocketLaunchInfoViewModel.wikiLink == nil
+    redditLinkButton.isHidden       = rocketLaunchInfoViewModel.redditLink == nil
+    articleLinkButton.isHidden      = rocketLaunchInfoViewModel.articleLink == nil
+    flickrImagesButton.isHidden     = rocketLaunchInfoViewModel.flickerImagesURLsStrings?.isEmpty ?? true
+  }
+  
+  // MARK: - Update constraints with hide/unhide UI elements
+  
+  func updateButtonConstraints(for rocketLaunchInfoViewModel: RocketLaunchInfoViewModel) {
+    
+    var elements: [(UIView, Bool)] = [
+      (missionNameLabel, true),
+      (missionPatchImageView, true),
+      (dateLabel, true),
+      (youtubeVideoLinkButton, rocketLaunchInfoViewModel.youtubeLink != nil),
+      (wikipediaLinkButton, rocketLaunchInfoViewModel.wikiLink       != nil),
+      (redditLinkButton, rocketLaunchInfoViewModel.redditLink        != nil),
+      (articleLinkButton, rocketLaunchInfoViewModel.articleLink      != nil),
+      (flickrImagesButton, !(rocketLaunchInfoViewModel.flickerImagesURLsStrings?.isEmpty ?? true))
+    ]
+    
+    if elements.map({ $0.1 == true }) == Array(repeating: true, count: elements.count) {
+      return
     }
-  // MARK: - Is hidden ui elements
-  func updateButtonAvailability(for rocketLaunchInfo: RocketLaunchInfo) {
-    youtubeVideoLinkButton.isHidden = rocketLaunchInfo.links?.youtubeId == nil
-    wikipediaLinkButton.isHidden = rocketLaunchInfo.links?.wikipedia == nil
-    redditLinkButton.isHidden = rocketLaunchInfo.links?.redditLaunch == nil
-    articleLinkButton.isHidden = rocketLaunchInfo.links?.articleLink == nil
+    
+    var previousElement: UIView? = nil
+    
+    for (element, shouldBeVisible) in elements {
+      if shouldBeVisible {
+        element.snp.remakeConstraints { make in
+          if let previous = previousElement {
+            make.top.equalTo(previous.snp.bottom).offset(15)
+          } else {
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+          }
+          make.centerX.equalTo(view.snp.centerX)
+          
+          if element == missionNameLabel {
+            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
+          } else if element == missionPatchImageView {
+            make.height.equalToSuperview().multipliedBy(0.15)
+            make.width.equalTo(view.snp.height).multipliedBy(0.15)
+          }
+        }
+        previousElement = element
+      }
     }
+  }
+  // MARK: - McFlurry needed function
+  
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
     return self
   }

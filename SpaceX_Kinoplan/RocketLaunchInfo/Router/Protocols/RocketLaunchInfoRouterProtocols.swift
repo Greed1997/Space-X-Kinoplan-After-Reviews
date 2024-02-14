@@ -7,10 +7,8 @@
 
 import ViperMcFlurry
 
-// MARK: - RocketLaunchInfoRouterProtocol
 protocol RocketLaunchInfoRouterProtocol: AnyObject {
   var transitionHandler: RamblerViperModuleTransitionHandlerProtocol? { get set }
-//  var listOfFlickerImagesAssembly: ListOfRocketsLaunchesAssemblyProtocol? { get set }
+  func showFlickerImagesVC(rocketLaunch: RocketLaunch)
   func popToRoot()
-  func showFlickerImagesVC(rocketLaunchInfo: RocketLaunchInfo)
 }

@@ -7,11 +7,9 @@
 
 import ViperMcFlurry
 
-// MARK: - ListOfRocketsLaunchesRouterInputProtocol
 protocol ListOfRocketsLaunchesRouterInputProtocol: AnyObject {
   var transitionHandler: RamblerViperModuleTransitionHandlerProtocol? { get set }
-//  var assemblyBuilderRocketLaunchInfo: RocketLaunchInfoAssembly? { get set }
-//  var presentedViewController: UIViewController? { get }
-  func showRocketLaunchInfo(with index: Int)
+  
+  func showRocketLaunchInfo(with rocketLaunch: RocketLaunch)
 }
 

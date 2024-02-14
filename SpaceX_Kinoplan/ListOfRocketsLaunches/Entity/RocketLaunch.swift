@@ -8,14 +8,17 @@
 import Foundation
 
 // MARK: - RocketLaunch
+
 struct RocketLaunch: Decodable, Hashable {
   
   // MARK: - Properties
+  
   let missionName: String?
   let links: RocketLaunchLinks?
   let launchDateLocal: String?
   
-  // MARK: - CodingKeys
+  // MARK: - RocketLaunch CodingKeys
+  
   enum CodingKeys: String, CodingKey {
     case missionName = "mission_name"
     case links = "links"
@@ -23,9 +26,11 @@ struct RocketLaunch: Decodable, Hashable {
   }
 }
 // MARK: - RocketLaunchLinks
+
 struct RocketLaunchLinks: Decodable, Hashable {
   
   // MARK: - Properties
+  
   let missionPatch: String?
   let redditLaunch: String?
   let wikipedia: String?
@@ -34,7 +39,8 @@ struct RocketLaunchLinks: Decodable, Hashable {
   let articleLink: String?
   let flickrImages: [String]?
   
-  // MARK: - CodingKeys
+  // MARK: - RocketLaunchLinks CodingKeys
+  
   enum CodingKeys: String, CodingKey {
     case missionPatch = "mission_patch"
     case redditLaunch = "reddit_launch"

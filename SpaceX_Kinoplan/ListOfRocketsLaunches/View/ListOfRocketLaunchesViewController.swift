@@ -8,60 +8,66 @@
 import ViperMcFlurry
 
 // MARK: - ListOfRocketsLaunchesViewController
+
 final class ListOfRocketsLaunchesViewController: UIViewController {
   
-  // MARK: - SectionKind
-  enum Section: Int, CaseIterable {
-    case rocketLaunchesInfo
-  }
-  
   // MARK: - Collections
+  
   var output: ListOfRocketsLaunchesViewOutputProtocol?
   
-  // MARK: - Properties
+  // MARK: - UI Properties
+  
   private var collectionView: UICollectionView! = nil
-  private var dataSource: UICollectionViewDiffableDataSource<Section, RocketLaunchCellModel>?
+  
+  // MARK: - Properties
+  
+  private var rocketLaunchCellViewModelElements: [RocketLaunchCell.ViewModel] = []
   
   // MARK: - ViewDidLoad()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     setupCollectionView()
     setupAppearance()
-    createDataSource()
     
     output?.viewDidLoad()
   }
 }
+
 // MARK: - Setup collection view
+
 private extension ListOfRocketsLaunchesViewController {
   private func setupCollectionView() {
+    
     collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
     collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    view.addSubview(collectionView)
-    collectionView.register(RocketLaunchCell.self, forCellWithReuseIdentifier: RocketLaunchCell.reuseID)
-    collectionView.delegate = self
     
+    view.addSubview(collectionView)
+    
+    collectionView.register(RocketLaunchCell.self, forCellWithReuseIdentifier: RocketLaunchCell.reuseID)
+    
+    collectionView.delegate = self
+    collectionView.dataSource = self
+  
   }
 }
+
 // MARK: - Create compositional layout
+
 private extension ListOfRocketsLaunchesViewController {
   private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
     let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-      guard let section = Section(rawValue: sectionIndex) else {
-        fatalError("Unknown section kind")
-      }
-      switch section {
-      case .rocketLaunchesInfo:
         return self.createRocketLaunches()
-      }
     }
     let config = UICollectionViewCompositionalLayoutConfiguration()
     config.scrollDirection = .horizontal
     layout.configuration = config
     return layout
   }
+  
   // MARK: - Create Rocket launch section
+  
   private func createRocketLaunches() -> NSCollectionLayoutSection {
     let width = UIScreen.main.bounds.width
     let inset = (width - (2 * (width * 0.4))) / 3
@@ -79,42 +85,50 @@ private extension ListOfRocketsLaunchesViewController {
     return section
   }
 }
-// MARK: - Create data source
-private extension ListOfRocketsLaunchesViewController {
-  private func createDataSource() {
-    dataSource = UICollectionViewDiffableDataSource<Section, RocketLaunchCellModel>(collectionView: collectionView, cellProvider: { collectionView, indexPath, rocketLaunch in
-      guard let section = Section(rawValue: indexPath.section) else {
-        fatalError("Unknow section kind")
-      }
-      switch section {
-      case .rocketLaunchesInfo:
-        return self.configure(collectionView: collectionView, cellType: RocketLaunchCell.self, with: rocketLaunch, for: indexPath)
-      }
-    })
+// MARK: - UICollectionViewDataSource
+
+extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    1
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return rocketLaunchCellViewModelElements.count
+  }
+  
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RocketLaunchCell.reuseID, for: indexPath) as! RocketLaunchCell
+    let rocketLaunchCellViewModelElement = rocketLaunchCellViewModelElements[indexPath.row]
+    cell.apply(viewModel: rocketLaunchCellViewModelElement)
+    return cell
   }
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension ListOfRocketsLaunchesViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    output?.getSelectedRocketLaunch(index: indexPath.item)
+    rocketLaunchCellViewModelElements[indexPath.item].onTap()
   }
 }
 // MARK: - ListOfRocketsLaunchesViewController
+
 extension ListOfRocketsLaunchesViewController: ListOfRocketLaunchesViewProtocol {
+  
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
     return self
   }
   
-  func reloadCollectionView(rocketLaunchCellModels: [RocketLaunchCellModel]) {
-    var snapshot = NSDiffableDataSourceSnapshot<Section, RocketLaunchCellModel>()
-    snapshot.appendSections([.rocketLaunchesInfo])
-    snapshot.appendItems(rocketLaunchCellModels, toSection: .rocketLaunchesInfo)
-    dataSource?.apply(snapshot, animatingDifferences: false)
+  func reloadCollectionView(rocketLaunchCellModels: [RocketLaunchCell.ViewModel]) {
+    self.rocketLaunchCellViewModelElements = rocketLaunchCellModels
+    collectionView.reloadData()
   }
   
 }
 // MARK: - Setup appearance
+
 private extension ListOfRocketsLaunchesViewController {
   func setupAppearance() {
     collectionView.backgroundColor = .darkGray

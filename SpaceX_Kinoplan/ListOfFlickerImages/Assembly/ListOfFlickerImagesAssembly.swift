@@ -7,21 +7,12 @@
 
 import ViperMcFlurry
 
-// MARK: - ListOfFlickerImagesAssembly
 final class ListOfFlickerImagesAssembly: NSObject, RamblerViperModuleFactoryProtocol {
-  
-  // MARK: - Properties
-  let rocketLaunchInfo: RocketLaunchInfo?
-  
-  // MARK: - Init
-  init(rocketLaunchInfo: RocketLaunchInfo?) {
-    self.rocketLaunchInfo = rocketLaunchInfo
-  }
   
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
     let vc = ListOfFlickerImagesViewController()
     let router = ListOfFlickerImagesRouter()
-    let presenter = ListOfFlickerImagesPresenter(view: vc, router: router, rocketLaunchInfo: rocketLaunchInfo)
+    let presenter = ListOfFlickerImagesPresenter(view: vc, router: router)
     
     vc.output = presenter
     

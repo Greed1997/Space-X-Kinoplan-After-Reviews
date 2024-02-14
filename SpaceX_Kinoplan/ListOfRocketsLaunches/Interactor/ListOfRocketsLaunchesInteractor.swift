@@ -5,7 +5,7 @@
 //  Created by Александр on 26.01.2024.
 //
 
-import Foundation
+import RxSwift
 
 // MARK: - ListOfRocketsLaunchesInteractor
 
@@ -18,42 +18,38 @@ final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInpu
   // MARK: - Services
   
   private var networkService: NetworkServiceProtocol
-  private var cacheStorage  : KingFisherImageCacheStorage
   
-  // MARK: - Properties
+  // MARK: - Tools
   
-  var rocketLaunches: [RocketLaunch]? = []
-  
-  // MARK: -
-
-  init(
-    networkService: NetworkServiceProtocol,
-    cacheStorage: KingFisherImageCacheStorage
-  ) {
-    self.networkService = networkService
-    self.cacheStorage = cacheStorage
-  }
+  let bag = DisposeBag()
   
   // MARK: - Init
-//  required init(networkService: NetworkServiceProtocol, cacheStorage: CacheStorageProtocol) {
-//    self.networkService = networkService
-//    self.cacheStorage = cacheStorage
-//  }
+  
+  init(
+    networkService: NetworkServiceProtocol
+  ) {
+    self.networkService = networkService
+  }
   
   
   // MARK: - Interactor input protocol methods
-  // Fetch data for all rocket launches
+  
   func fetchData() {
-    networkService.fetchData(from: "https://api.spacexdata.com/v3/launches") { [weak self] (result: Result<[RocketLaunch], RocketError>) in
+    networkService.fetchAllRocketLaunchesData(from: "https://api.spacexdata.com/v3/launches")
+      .subscribe(onNext: { [weak self] rocketLaunches in
+        
       guard let self = self else { return }
-      switch result {
-      case .success(let rocketLaunches):
-        self.output?.dataFetched(rocketLaunches: rocketLaunches)
-        self.rocketLaunches = rocketLaunches
-      case .failure(let error):
+        
+      self.output?.dataFetched(rocketLaunches: rocketLaunches)
+    }) { error in
+      
+      if let rocketError = error as? RocketError {
+        print(rocketError.localizedDescription)
+      } else {
         print(error.localizedDescription)
       }
-    }
+    }.disposed(by: bag)
+    
   }
-
+  
 }

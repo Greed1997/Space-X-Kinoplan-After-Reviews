@@ -8,47 +8,101 @@
 import ViperMcFlurry
 
 // MARK: - ListOfFlickerImagesViewController
+
 final class ListOfFlickerImagesViewController: UIViewController {
-  enum Section: Int, CaseIterable {
-    case flickerImages
-  }
+  
+  // MARK: - Connections
+  
   var output: ListOfFlickerImagesViewOutputProtocol?
-  var dataSource: UICollectionViewDiffableDataSource<Section, String>?
+  
+  // MARK: - UI Properties
+  
   private var collectionView: UICollectionView! = nil
+  private var scrollView: UIScrollView!
+  private var imageView: UIImageView!
+  
+  // MARK: - Properties
+  
+  var flickerImagesCellViewModelElements: [FlickerImageCell.ViewModel] = []
+  
+  // MARK: - View did load
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     setupCollectionView()
-    createDataSource()
+    setupAppearance()
+    
     output?.viewDidLoad()
   }
 }
 // MARK: - Setup collection view
+
 private extension ListOfFlickerImagesViewController {
+  
   private func setupCollectionView() {
     collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
     collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    
     view.addSubview(collectionView)
+    
     collectionView.register(FlickerImageCell.self, forCellWithReuseIdentifier: FlickerImageCell.reuseID)
+    
+    collectionView.delegate = self
+    collectionView.dataSource = self
   }
 }
+
+// MARK: - UICollectionViewDelegate
+
+extension ListOfFlickerImagesViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    flickerImagesCellViewModelElements[indexPath.item].onTap()
+  }
+}
+
+// MARK: - UICollectionViewDataSource
+
+extension ListOfFlickerImagesViewController: UICollectionViewDataSource {
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    1
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    flickerImagesCellViewModelElements.count
+  }
+  
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlickerImageCell.reuseID, for: indexPath) as! FlickerImageCell
+    
+    let flickerImagesCellViewModelElement = flickerImagesCellViewModelElements[indexPath.row]
+    
+    cell.apply(viewModel: flickerImagesCellViewModelElement)
+    return cell
+  }
+}
+
+
 // MARK: - Create compositional layout
+
 private extension ListOfFlickerImagesViewController {
+  
+  // MARK: - Create flicker images layout
+  
   private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
     let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-      guard let section = Section(rawValue: sectionIndex) else {
-        fatalError("Unknown section kind")
-      }
-      switch section {
-      case .flickerImages:
-        return self.createFlickerImagesSection()
-      }
+      return self.createFlickerImagesSection()
     }
     let config = UICollectionViewCompositionalLayoutConfiguration()
     config.scrollDirection = .horizontal
     layout.configuration = config
     return layout
   }
+  
   // MARK: - Create flicker images section
+  
   private func createFlickerImagesSection() -> NSCollectionLayoutSection {
     let width = UIScreen.main.bounds.width
     let inset = (width - (2 * (width * 0.4))) / 3
@@ -66,31 +120,36 @@ private extension ListOfFlickerImagesViewController {
     return section
   }
 }
-// MARK: - UICollectionViewDiffableDataSource
-private extension ListOfFlickerImagesViewController {
-  private func createDataSource() {
-    dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: { collectionView, indexPath, flickerImageUrlString in
-      guard let section = Section(rawValue: indexPath.section) else {
-        fatalError("Unknown section kind")
-      }
-      switch section {
-      case .flickerImages:
-        return self.configure(collectionView: collectionView, cellType: FlickerImageCell.self, with: flickerImageUrlString, for: indexPath)
-      }
-    })
-  }
-}
 // MARK: - ListOfFlickerImagesViewProtocol
+
 extension ListOfFlickerImagesViewController: ListOfFlickerImagesViewProtocol {
+  
+  // MARK: - VIPER McFlurry needed func
+  
+  func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
+    return self
+  }
+  
+  // MARK: - Reload collectionView with fetch flicker images
+  
+  func reloadCollectionView(flickerImagesCellModels: [FlickerImageCell.ViewModel]) {
+    self.flickerImagesCellViewModelElements = flickerImagesCellModels
+    collectionView.reloadData()
+  }
+  
+  // MARK: - Set title for view controller
   
   func setTitleVC(title: String) {
     navigationItem.title = title
   }
+}
+
+// MARK: - Setup appearance
+
+private extension ListOfFlickerImagesViewController {
   
-  func reloadCollectionView(flickerImagesUrlString: [String] ) {
-    var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
-    snapshot.appendSections([.flickerImages])
-    snapshot.appendItems(flickerImagesUrlString, toSection: .flickerImages)
-    dataSource?.apply(snapshot, animatingDifferences: true)
+  func setupAppearance() {
+    
+    collectionView.backgroundColor = .darkGray
   }
 }

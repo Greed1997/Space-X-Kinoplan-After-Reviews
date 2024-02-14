@@ -5,49 +5,30 @@
 //  Created by Александр on 25.01.2024.
 //
 
-import UIKit
 import Kingfisher
 import SnapKit
 
-// MARK: - Rocket launch cell model
-struct RocketLaunchCellModel: Hashable {
-  let missionName: String?
-  let missionPatchImageViewURL: URL?
-  let missionDate: String?
-}
 
 // MARK: - RocketLaunchCell
-final class RocketLaunchCell: UICollectionViewCell, SelfConfiguringCell {
+
+final class RocketLaunchCell: UICollectionViewCell {
   
   // MARK: - Reuse ID
+  
   static var reuseID: String {
     "RocketLaunchCell"
   }
   
   // MARK: - UI Properties
-  private lazy var missionNameLabel: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 0
-    label.textAlignment = .center
-    label.backgroundColor = backgroundColor
-    label.font = UIFont.boldSystemFont(ofSize: 16)
-    return label
-  }()
-  private lazy var missionPatchImageView: UIImageView = {
-    let imageView = UIImageView()
-    return imageView
-  }()
-  private lazy var dateLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.numberOfLines = 0
-    label.textAlignment = .center
-    label.backgroundColor = backgroundColor
-    label.font = UIFont.systemFont(ofSize: 12)
-    return label
-  }()
+  
+  private let missionNameLabel = UILabel()
+  
+  private let missionPatchImageView = UIImageView()
+  
+  private let dateLabel = UILabel()
   
   // MARK: - Layout Subviews
+  
   override func layoutSubviews() {
     super.layoutSubviews()
     layer.cornerRadius = 10
@@ -57,35 +38,52 @@ final class RocketLaunchCell: UICollectionViewCell, SelfConfiguringCell {
   }
   
   // MARK: - Init
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     backgroundColor = .gray
-    embedViews(subviews: missionNameLabel, missionPatchImageView, dateLabel)
+    
+    embedSubviews(
+      subviews:
+        missionNameLabel,
+        missionPatchImageView,
+        dateLabel
+    )
     setupLayout()
+    setupAppearance()
   }
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+}
+
+// MARK: - Apply UI elements content
+
+extension RocketLaunchCell {
   
-  // MARK: - Configure cell
-  func configure<U>(with value: U) where U : Hashable {
-    guard let value = value as? RocketLaunchCellModel else { return }
-    missionNameLabel.text = value.missionName
-    dateLabel.text = value.missionDate
-    missionPatchImageView.kf.setImage(with: value.missionPatchImageViewURL,
-                                      placeholder: UIImage(named: "Cosmos"),
-                                      options: [
-                                        .scaleFactor(contentScaleFactor),
-                                        .transition(.fade(1)),
-                                        .cacheOriginalImage
-                                      ])
+  func apply(viewModel: RocketLaunchCell.ViewModel) {
+    
+    missionNameLabel.text = viewModel.missionName
+    dateLabel.text = viewModel.missionDate
+    
+    missionPatchImageView.kf.setImage(
+      with: viewModel.missionPatchImageViewURL,
+      placeholder: UIImage(named: "Cosmos"),
+      options: [
+        .scaleFactor(contentScaleFactor),
+        .transition(.fade(1)),
+        .cacheOriginalImage
+      ])
   }
 }
+
 // MARK: - Setup cell content
+
 private extension RocketLaunchCell {
   
-  // MARK: - Embed Views
-  func embedViews(subviews: UIView...) {
+  // MARK: - Embed subviews for stackView
+  // maybe need to be public to all UICollectionViewCell
+  func embedSubviews(subviews: UIView...) {
     subviews.forEach { subview in
       subview.translatesAutoresizingMaskIntoConstraints = false
       addSubview(subview)
@@ -93,12 +91,13 @@ private extension RocketLaunchCell {
   }
   
   // MARK: - Setup layout
+  
   func setupLayout() {
     missionNameLabel.snp.makeConstraints { make in
       make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(20)
       make.leading.equalToSuperview().offset(16)
       make.trailing.equalToSuperview().offset(-16)
-      make.height.equalToSuperview().multipliedBy(0.2)
+      make.height.equalToSuperview().multipliedBy(0.25)
     }
     missionPatchImageView.snp.makeConstraints { make in
       make.top.equalTo(missionNameLabel.snp.bottom).offset(15)
@@ -111,6 +110,44 @@ private extension RocketLaunchCell {
       make.leading.equalToSuperview().offset(16)
       make.trailing.equalToSuperview().offset(-16)
       make.height.equalToSuperview().multipliedBy(0.2)
+    }
+  }
+  
+  // MARK: - Setup appearance
+  
+  func setupAppearance() {
+    missionNameLabel.numberOfLines = 0
+    missionNameLabel.textAlignment = .center
+    missionNameLabel.font = UIFont.boldSystemFont(ofSize: 15)
+    missionNameLabel.backgroundColor = backgroundColor
+    
+    
+    dateLabel.numberOfLines = 0
+    dateLabel.textAlignment = .center
+    dateLabel.font = UIFont.systemFont(ofSize: 12)
+    dateLabel.backgroundColor = backgroundColor
+  }
+  
+}
+
+// MARK: - RocketLaunchCell ViewModel
+
+extension RocketLaunchCell {
+  
+  struct ViewModel: Hashable {
+    
+    let missionName: String?
+    let missionPatchImageViewURL: URL?
+    let missionDate: String?
+    let onTap: () -> Void
+    
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(missionName)
+    }
+    static func == (lhs: ViewModel, rhs: ViewModel) -> Bool {
+      lhs.missionName == rhs.missionName &&
+      lhs.missionPatchImageViewURL == rhs.missionPatchImageViewURL &&
+      lhs.missionDate == rhs.missionDate
     }
   }
 }

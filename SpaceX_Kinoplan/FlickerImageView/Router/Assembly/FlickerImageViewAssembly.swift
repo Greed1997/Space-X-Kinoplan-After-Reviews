@@ -1,22 +1,23 @@
 //
-//  RocketLaunchInfoAssembly.swift
+//  FlickerImageViewAssembly.swift
 //  SpaceX_Kinoplan
 //
-//  Created by Александр on 08.02.2024.
+//  Created by Александр on 14.02.2024.
 //
 
 import ViperMcFlurry
 
-final class RocketLaunchInfoAssembly: NSObject, RamblerViperModuleFactoryProtocol {
+final class FlickerImageViewAssembly: NSObject, RamblerViperModuleFactoryProtocol {
+  
   
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
     
-    let viewController = RocketLaunchInfoViewController()
+    let viewController = FlickerImageViewController()
     
-    let router = RocketLaunchInfoRouter()
+    let router = FlickerImageViewRouter()
     router.transitionHandler = viewController
     
-    let presenter = RocketLaunchInfoPresenter(
+    let presenter = FlickerImageViewPresenter(
       router: router,
       view: viewController
     )
@@ -25,5 +26,7 @@ final class RocketLaunchInfoAssembly: NSObject, RamblerViperModuleFactoryProtoco
     
     return viewController
   }
+  
+  
+  
 }
-

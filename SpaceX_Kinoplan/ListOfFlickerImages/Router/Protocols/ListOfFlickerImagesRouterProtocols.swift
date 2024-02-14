@@ -7,9 +7,9 @@
 
 import ViperMcFlurry
 
-// MARK: - ListOfFlickerImagesRouterProtocol
 protocol ListOfFlickerImagesRouterProtocol: AnyObject {
   var transitionHandler: RamblerViperModuleTransitionHandlerProtocol? { get set }
-//  func goToRocketLaunchInfo
+  func goToRocketLaunchInfo()
+  func goToViewControllerWithSelectedFlickerImage(flickerImageURL: URL)
 }
 

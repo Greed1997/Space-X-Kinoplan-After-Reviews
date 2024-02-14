@@ -11,43 +11,55 @@ import RxSwift
 
 // MARK: - NetworkServiceProtocol
 protocol NetworkServiceProtocol {
-  func fetchData<T: Decodable>(from urlString: String, completion: @escaping ((Result<[T], RocketError>) -> Void))
-  func fetchData<T: Decodable>(from urlString: String, completion: @escaping ((Result<T, RocketError>) -> Void))
-  
-  
+  func fetchOneRocketLaunchData(from urlString: String) -> Observable<RocketLaunch>
+  func fetchAllRocketLaunchesData(from urlString: String) -> Observable<[RocketLaunch]>
 }
 
 // MARK: - NetworkService
 final class NetworkService: NetworkServiceProtocol {
-  func fetchData<T>(from urlString: String, completion: @escaping ((Result<T, RocketError>) -> Void)) where T : Decodable {
-    guard let url = URL(string: urlString) else {
-      return
-    }
-    AF.request(url).validate().responseDecodable(of: T.self) { response in
-      switch response.result {
-      case .success(let rocketLaunches):
-        completion(.success(rocketLaunches))
-      case .failure(let error):
-        let rocketError = RocketError(error: error)
-        completion(.failure(rocketError))
+  
+  func fetchOneRocketLaunchData(from urlString: String) -> Observable<RocketLaunch> {
+    return Observable<RocketLaunch>.create { observer in
+      guard let url = URL(string: urlString) else {
+        let rocketError = RocketError.badURL
+        observer.onError(rocketError)
+        return Disposables.create()
+      }
+      let request = AF.request(url).validate().responseDecodable(of: RocketLaunch.self) { response in
+        switch response.result {
+        case .success(let data):
+          observer.onNext(data)
+          observer.onCompleted()
+        case .failure(_):
+          let rocketError = RocketError.decodingError
+          observer.onError(rocketError)
+        }
+      }
+      return Disposables.create {
+        request.cancel()
       }
     }
   }
-  
-  
-  // MARK: - Fetch data
-  func fetchData<T: Decodable>(from urlString: String, completion: @escaping ((Result<[T], RocketError>) -> Void)) {
-    guard let url = URL(string: urlString) else {
-      return
-    }
-    AF.request(url).validate().responseDecodable(of: [T].self) { response in
-      switch response.result {
-      case .success(let rocketLaunches):
-        completion(.success(rocketLaunches))
-      case .failure(let error):
-        let rocketError = RocketError(error: error)
-        completion(.failure(rocketError))
+  func fetchAllRocketLaunchesData(from urlString: String) -> Observable<[RocketLaunch]> {
+      return Observable<[RocketLaunch]>.create { observer in
+        guard let url = URL(string: urlString) else {
+          let rocketError = RocketError.badURL
+          observer.onError(rocketError)
+          return Disposables.create()
+        }
+        let request = AF.request(url).validate().responseDecodable(of: [RocketLaunch].self) { response in
+          switch response.result {
+          case .success(let rocketLaunches):
+            observer.onNext(rocketLaunches)
+            observer.onCompleted()
+          case .failure(let error):
+            let rocketError = RocketError.decodingError
+            observer.onError(rocketError)
+          }
+        }
+        return Disposables.create {
+          request.cancel()
+        }
       }
     }
-  }
 }

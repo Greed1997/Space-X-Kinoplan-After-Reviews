@@ -8,7 +8,8 @@
 import Foundation
 
 // MARK: - ListOfRocketsLaunchesPresenter
-final class ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesViewOutputProtocol {
+
+final class ListOfRocketsLaunchesPresenter: NSObject, ListOfRocketsLaunchesViewOutputProtocol {
   
   // MARK: - Connections
   
@@ -18,7 +19,7 @@ final class ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesViewOutputProto
   
   // MARK: - Init
   
-  init(
+  required init(
     view: ListOfRocketsLaunchesViewInputProtocol?,
     interactor: ListOfRocketsLaunchesInteractorInputProtocol,
     router: ListOfRocketsLaunchesRouterInputProtocol
@@ -28,39 +29,55 @@ final class ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesViewOutputProto
     self.router = router
   }
   
-  // MARK: - View Output Methods
+}
+
+// MARK: - View Output Methods
+
+extension ListOfRocketsLaunchesPresenter {
+  
   func viewDidLoad() {
     interactor.fetchData()
   }
+
+}
+
+// MARK: - Interactor output methods
+
+extension ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesInteractorOutputProtocol {
   
-  func getSelectedRocketLaunch(index: Int) {
-    router.showRocketLaunchInfo(with: index)
+  func dataFetched(rocketLaunches: [RocketLaunch]) {
+    let convertedRocketLaunches = convert(rocketLaunches: rocketLaunches)
+    view?.reloadCollectionView(rocketLaunchCellModels: convertedRocketLaunches)
   }
   
 }
-// MARK: - Interactor output methods
-extension ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesInteractorOutputProtocol {
+
+// MARK: - Convert and routing converted rocket launch data
+
+private extension ListOfRocketsLaunchesPresenter {
   
-  func goToRocketLaunchVC(index: Int) {
-    router.showRocketLaunchInfo(with: index)
-  }
-  
-  func dataFetched(rocketLaunches: [RocketLaunch]) {
-    var rocketLaunchCellModels: [RocketLaunchCellModel] = []
+  func convert(rocketLaunches: [RocketLaunch]) -> [RocketLaunchCell.ViewModel] {
+    
+    var arrayOfRocketLaunchCellModel: [RocketLaunchCell.ViewModel] = []
+    
     rocketLaunches.forEach { rocketLaunch in
       let dateString = rocketLaunch.launchDateLocal!
-      let index = rocketLaunch.launchDateLocal!.firstIndex(of: "T")!
+      let index = dateString.firstIndex(of: "T")!
       let date = dateString.prefix(upTo: index)
       let time = dateString.suffix(from: dateString.index(after: index))
       let formatedString = "\(date)\n\(time)"
       
-      rocketLaunchCellModels.append(RocketLaunchCellModel(
-        missionName: rocketLaunch.missionName,
-        missionPatchImageViewURL: URL(string: rocketLaunch.links?.missionPatch ?? ""),
-        missionDate: formatedString)
-      )
+      arrayOfRocketLaunchCellModel.append(
+        RocketLaunchCell.ViewModel(
+          missionName: rocketLaunch.missionName,
+          missionPatchImageViewURL: URL(string: rocketLaunch.links?.missionPatch ?? ""),
+          missionDate: formatedString,
+          onTap: { [weak self] in
+            guard let self = self else { return }
+            self.router.showRocketLaunchInfo(with: rocketLaunch)
+          })
+        )
     }
-    view?.reloadCollectionView(rocketLaunchCellModels: rocketLaunchCellModels) // rocketLaunches = rocketLaunchCellModels
+    return arrayOfRocketLaunchCellModel
   }
-  
 }

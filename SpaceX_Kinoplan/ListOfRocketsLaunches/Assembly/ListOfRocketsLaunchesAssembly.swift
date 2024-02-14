@@ -16,11 +16,9 @@ final class ListOfRocketsLaunchesAssembly: NSObject, RamblerViperModuleFactoryPr
     router.transitionHandler = viewController
     
     let networkService = NetworkService()
-    let cacheStorage = KingFisherImageCacheStorage()
     
     let interactor = ListOfRocketsLaunchesInteractor(
-      networkService: networkService,
-      cacheStorage: cacheStorage
+      networkService: networkService
     )
     
     let presenter = ListOfRocketsLaunchesPresenter(
