@@ -25,7 +25,7 @@ final class ListOfRocketsLaunchesViewController: UIViewController {
   
   // MARK: - Properties
   
-  private var arrayOfRocketLaunchCellViewModels: [RocketLaunchCell.ViewModel] = []
+  private var rocketLaunchCellViewModels: [RocketLaunchCell.ViewModel] = []
   
   // MARK: - ViewDidLoad()
   
@@ -108,7 +108,7 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int
   ) -> Int {
-    return arrayOfRocketLaunchCellViewModels.count
+    return rocketLaunchCellViewModels.count
   }
   
   func collectionView(
@@ -120,7 +120,7 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
       for: indexPath
     ) as! RocketLaunchCell
     
-    cell.apply(viewModel: arrayOfRocketLaunchCellViewModels[indexPath.row])
+    cell.apply(viewModel: rocketLaunchCellViewModels[indexPath.row])
     
     return cell
   }
@@ -134,7 +134,7 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDelegate {
     _ collectionView: UICollectionView,
     didSelectItemAt indexPath: IndexPath
   ) {
-    arrayOfRocketLaunchCellViewModels[indexPath.item].onTap()
+    rocketLaunchCellViewModels[indexPath.item].onTap()
   }
   
 }
@@ -144,7 +144,7 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDelegate {
 extension ListOfRocketsLaunchesViewController: ListOfRocketLaunchesViewProtocol {
   
   func set(viewModel: [RocketLaunchCell.ViewModel]) {
-    self.arrayOfRocketLaunchCellViewModels = viewModel
+    self.rocketLaunchCellViewModels = viewModel
     collectionView.reloadData()
   }
   

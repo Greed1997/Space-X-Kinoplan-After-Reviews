@@ -37,7 +37,7 @@ extension FlickerImagePresenter: FlickerImageViewOutputProtocol {
   // MARK: - View did load
   
   func viewDidLoad() {
-    view?.viewDidLoadFromOutput(flickerImageURL: flickerImageURL!)
+    view?.set(flickerImageURL: flickerImageURL!)
   }
   
   // MARK: - Set current rocketLaunch

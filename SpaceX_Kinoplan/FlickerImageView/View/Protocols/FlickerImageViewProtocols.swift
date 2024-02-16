@@ -10,7 +10,7 @@ import ViperMcFlurry
 // MARK: - FlickerImageViewInputProtocol
 
 protocol FlickerImageViewInputProtocol: AnyObject {
-  func viewDidLoadFromOutput(flickerImageURL: URL)
+  func set(flickerImageURL: URL)
 }
 
 // MARK: - FlickerImageViewOutputProtocol

@@ -110,7 +110,7 @@ extension FlickerImageViewController: UIScrollViewDelegate {
 
 extension FlickerImageViewController: FlickerImageViewInputProtocol {
   
-  func viewDidLoadFromOutput(flickerImageURL: URL) {
+  func set(flickerImageURL: URL) {
     flickerImageView.kf.setImage(with: flickerImageURL, placeholder: UIImage.placeholder)
   }
   
