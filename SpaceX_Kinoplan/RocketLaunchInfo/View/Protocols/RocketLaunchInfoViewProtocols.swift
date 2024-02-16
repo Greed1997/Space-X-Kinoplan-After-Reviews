@@ -10,26 +10,20 @@ import ViperMcFlurry
 // MARK: - RocketLaunchInfoViewInputProtocol
 
 protocol RocketLaunchInfoViewInputProtocol: AnyObject {
-  func viewDidLoadFromOutput(rocketLaunchInfoViewModel: RocketLaunchInfoViewModel)
-  func updateButtonAvailability(for rocketLaunchInfoViewModel: RocketLaunchInfoViewModel)
-  func updateButtonConstraints(for rocketLaunchInfoViewModel: RocketLaunchInfoViewModel)
+  func set(viewModel: RocketLaunchInfoViewModel)
 }
 
 // MARK: - RocketLaunchInfoViewOutputProtocol
 
 protocol RocketLaunchInfoOutputProtocol: AnyObject, RamblerViperModuleInput {
-  init(
-    router: RocketLaunchInfoRouterProtocol,
-    view: RocketLaunchInfoViewInputProtocol
-  )
   func viewDidLoad()
-  func youtubeButtonTapped()
-  func wikiButtonTapped()
-  func redditButtonTapped()
-  func articleButtonTapped()
-  func flickerImagesButtonTapped()
-  func popToRoot()
-  func setVariable(for rocketLaunch: RocketLaunch)
+  func onYoutubeButtonTapped()
+  func onWikiButtonTapped()
+  func onRedditButtonTapped()
+  func onArticleButtonTapped()
+  func onFlickerImagesButtonTapped()
+  func dismiss()
+  func setVariable(_ rocketLaunch: RocketLaunch)
 }
 
 // MARK: - RocketLaunchInfoViewProtocol
@@ -40,25 +34,16 @@ protocol RocketLaunchInfoViewProtocol: AnyObject, RocketLaunchInfoViewInputProto
 
 // MARK: - RocketLaunchInfoViewModel
 
-struct RocketLaunchInfoViewModel: Hashable {
+struct RocketLaunchInfoViewModel {
   
-  let missionName: String?
+  let missionName: String
   let missionPatchImageViewURL: URL?
-  let missionDate: String?
+  let missionDate: String
   
   let youtubeLink: String?
   let wikiLink: String?
   let redditLink: String?
   let articleLink: String?
-  let flickerImagesURLsStrings: [String]?
+  let flickerImages: [String]?
   
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(missionName)
-  }
-  
-  static func == (lhs: RocketLaunchInfoViewModel, rhs: RocketLaunchInfoViewModel) -> Bool {
-    lhs.missionName == rhs.missionName &&
-    lhs.missionPatchImageViewURL == rhs.missionPatchImageViewURL &&
-    lhs.missionDate == rhs.missionDate
-  }
 }

@@ -7,47 +7,43 @@
 
 import Foundation
 
-final class FlickerImagePresenter: NSObject, FlickerImageViewOutputProtocol {
+final class FlickerImagePresenter: NSObject {
   
   // MARK: - Connections
   
-  var router: FlickerImageViewRouterProtocol!
   weak var view: FlickerImageViewInputProtocol?
+  var router: FlickerImageRouterProtocol!
   
   // MARK: - Properties
   
-  var flickerImageURL: URL!
+  private var flickerImageURL: URL?
   
   // MARK: - Init
   
   init(
-    router: FlickerImageViewRouterProtocol,
-    view: FlickerImageViewInputProtocol
+    view: FlickerImageViewInputProtocol,
+    router: FlickerImageRouterProtocol
   ) {
-    self.router = router
     self.view = view
+    self.router = router
   }
+  
+}
+
+// MARK: - FlickerImageViewOutputProtocol
+
+extension FlickerImagePresenter: FlickerImageViewOutputProtocol {
   
   // MARK: - View did load
   
   func viewDidLoad() {
-    view?.viewDidLoadFromOutput(flickerImageViewModel: FlickerImageViewModel(flickerImageURL: flickerImageURL))
+    view?.viewDidLoadFromOutput(flickerImageURL: flickerImageURL!)
   }
-  
- 
-}
-
-// MARK: - Resizing image
-
-extension FlickerImagePresenter {
-  func startResizingImage() {
-    
-  }
-  
   
   // MARK: - Set current rocketLaunch
   
-  func setVariable(for flickerImageURL: URL) {
+  func setVariable(_ flickerImageURL: URL) {
     self.flickerImageURL = flickerImageURL
   }
+  
 }

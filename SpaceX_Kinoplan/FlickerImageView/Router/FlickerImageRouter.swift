@@ -7,17 +7,19 @@
 
 import ViperMcFlurry
 
-// MARK: - FlickerImageViewRouter
-
-final class FlickerImageRouter: FlickerImageViewRouterProtocol {
+final class FlickerImageRouter {
   
   // MARK: - Connections
   
   weak var transitionHandler: RamblerViperModuleTransitionHandlerProtocol?
   
-  // MARK: - Go to list of flicker images view controller
+}
+
+// MARK: - FlickerImageRouterProtocol
+
+extension FlickerImageRouter: FlickerImageRouterProtocol {
   
-  func goToListOfFlickerImages() {
+  func dismiss() {
     transitionHandler?.closeCurrentModule?(true)
   }
   

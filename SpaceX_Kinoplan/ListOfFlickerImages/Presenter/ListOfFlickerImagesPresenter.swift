@@ -9,8 +9,7 @@ import Foundation
 
 // MARK: - ListOfFlickerImagesPresenter
 
-final class ListOfFlickerImagesPresenter: NSObject, ListOfFlickerImagesViewOutputProtocol {
-  
+final class ListOfFlickerImagesPresenter: NSObject {
   
   // MARK: - Connections
   
@@ -19,11 +18,11 @@ final class ListOfFlickerImagesPresenter: NSObject, ListOfFlickerImagesViewOutpu
   
   // MARK: - Properties
   
-  var rocketLaunch: RocketLaunch!
+  private var rocketLaunch: RocketLaunch?
   
   // MARK: - Init
   
-  required init(
+  init(
     view: ListOfFlickerImagesViewInputProtocol,
     router: ListOfFlickerImagesRouterProtocol
   ) {
@@ -31,12 +30,27 @@ final class ListOfFlickerImagesPresenter: NSObject, ListOfFlickerImagesViewOutpu
     self.router = router
   }
   
-  // MARK: - View did load
+}
+
+// MARK: - ListOfFlickerImagesViewOutputProtocol
+
+extension ListOfFlickerImagesPresenter: ListOfFlickerImagesViewOutputProtocol {
+  
+  func dismiss() {
+    router?.dismiss()
+  }
   
   func viewDidLoad() {
-    let convertedFlickerImageViewModels = convert(rocketLaunch: rocketLaunch)
-    view?.setTitleVC(title: rocketLaunch.missionName!)
-    view?.reloadCollectionView(flickerImagesCellModels: convertedFlickerImageViewModels)
+    view?.setData(
+      viewModel: ViewModel(
+        title: (rocketLaunch?.missionName)!,
+        flickerImageViewModel: convert(rocketLaunch)
+      )
+    )
+  }
+  
+  func setVariable(for rocketLaunch: RocketLaunch) {
+    self.rocketLaunch = rocketLaunch
   }
   
 }
@@ -45,40 +59,19 @@ final class ListOfFlickerImagesPresenter: NSObject, ListOfFlickerImagesViewOutpu
 
 private extension ListOfFlickerImagesPresenter {
   
-  func convert(rocketLaunch: RocketLaunch) -> [FlickerImageCell.ViewModel] {
+  func convert(_ rocketLaunch: RocketLaunch?) -> [FlickerImageCell.FlickerImageViewModel] {
     
-    var arrayOfFlickerImageViewModel: [FlickerImageCell.ViewModel] = []
+    guard let flickerImages = rocketLaunch?.links?.flickrImages else { return [] }
     
-    rocketLaunch.links?.flickrImages?.forEach({ flickerImageString in
-      guard let flickerImageURL = URL(string: flickerImageString) else { return }
-      arrayOfFlickerImageViewModel.append(FlickerImageCell.ViewModel(flickerImageURL: URL(string: flickerImageString)!, onTap: { [weak self] in
+    return flickerImages.compactMap({ flickerImageString in
+      guard let flickerImageURL = URL(string: flickerImageString) else { return nil }
+      return FlickerImageCell.FlickerImageViewModel(imageURL: flickerImageURL) { [weak self] in
         guard let self = self else { return }
-        self.router?.goToViewControllerWithSelectedFlickerImage(flickerImageURL: flickerImageURL)
-      }))
-    })
-    return arrayOfFlickerImageViewModel
-  }
-  
-}
-
-// MARK: - Set started rocket launch to vc
-
-extension ListOfFlickerImagesPresenter {
-  
-  func setVariable(for rocketLaunch: RocketLaunch) {
-    self.rocketLaunch = rocketLaunch
-  }
-}
-
-// MARK: - Go to flicker image view controller
-
-extension ListOfFlickerImagesPresenter {
-  
-  func showViewControllerWithSelectedFlickerImage(index: Int) {
-    if let arrayOfFlickerImages = rocketLaunch.links?.flickrImages {
-      if let flickerImageURL = URL(string: arrayOfFlickerImages[index]) {
-        router?.goToViewControllerWithSelectedFlickerImage(flickerImageURL: flickerImageURL)
+        self.router?.presentViewControllerWithSelectedFlickerImage(flickerImageURL: flickerImageURL)
       }
-    }
+    })
+    
   }
+  
 }
+

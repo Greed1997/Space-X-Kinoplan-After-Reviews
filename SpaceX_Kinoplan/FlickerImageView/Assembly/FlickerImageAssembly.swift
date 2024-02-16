@@ -9,24 +9,22 @@ import ViperMcFlurry
 
 final class FlickerImageAssembly: NSObject, RamblerViperModuleFactoryProtocol {
   
-  
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
     
     let viewController = FlickerImageViewController()
     
-    let router = FlickerImageViewRouter()
+    let router = FlickerImageRouter()
     router.transitionHandler = viewController
     
-    let presenter = FlickerImageViewPresenter(
-      router: router,
-      view: viewController
+    let presenter = FlickerImagePresenter(
+      view: viewController, 
+      router: router
     )
     
     viewController.output = presenter
     
     return viewController
+    
   }
-  
-  
   
 }

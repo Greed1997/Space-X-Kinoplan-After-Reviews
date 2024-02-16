@@ -6,6 +6,7 @@
 //
 
 import ViperMcFlurry
+import SnapKit
 
 // MARK: - ListOfRocketsLaunchesViewController
 
@@ -17,7 +18,7 @@ final class ListOfRocketsLaunchesViewController: UIViewController {
   
   // MARK: - UI Properties
   
-  private var collectionView: UICollectionView! = nil
+  private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
   
   // MARK: - Properties
   
@@ -28,8 +29,10 @@ final class ListOfRocketsLaunchesViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setupCollectionView()
+    embedViews()
+    setupLayout()
     setupAppearance()
+    setupBehavior()
     
     output?.viewDidLoad()
   }
@@ -38,53 +41,68 @@ final class ListOfRocketsLaunchesViewController: UIViewController {
 // MARK: - Setup collection view
 
 private extension ListOfRocketsLaunchesViewController {
-  private func setupCollectionView() {
-    
-    collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
-    collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
+  
+  func embedViews() {
     view.addSubview(collectionView)
+  }
+  
+  func setupLayout() {
+    collectionView.snp.makeConstraints { make in
+      make.top.bottom.equalToSuperview()
+      make.left.right.equalToSuperview()
+    }
+  }
+  
+  func setupAppearance() {
+    collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    collectionView.backgroundColor = .darkGray
+    collectionView.collectionViewLayout = createCompositionalLayout()
+    (collectionView.collectionViewLayout as? UICollectionViewFlowLayout).flatMap {
+      $0.scrollDirection = .vertical
+    }
     
+    navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    navigationController?.navigationBar.shadowImage = UIImage()
+    navigationController?.navigationBar.isTranslucent = true
+  }
+  
+  func setupBehavior() {
     collectionView.register(RocketLaunchCell.self, forCellWithReuseIdentifier: RocketLaunchCell.reuseID)
     
     collectionView.delegate = self
     collectionView.dataSource = self
-  
   }
+  
 }
 
 // MARK: - Create compositional layout
 
 private extension ListOfRocketsLaunchesViewController {
-  private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+  func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
     let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-        return self.createRocketLaunches()
+      return self.createRocketLaunches()
     }
-    let config = UICollectionViewCompositionalLayoutConfiguration()
-    config.scrollDirection = .horizontal
-    layout.configuration = config
     return layout
   }
   
   // MARK: - Create Rocket launch section
   
-  private func createRocketLaunches() -> NSCollectionLayoutSection {
-    let width = UIScreen.main.bounds.width
-    let inset = (width - (2 * (width * 0.4))) / 3
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
-    let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.3))
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item, item])
-    group.interItemSpacing = .fixed(inset)
-    let section = NSCollectionLayoutSection(group: group)
+  func createRocketLaunches() -> NSCollectionLayoutSection {
+    let itemSize            = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
+    let item                = NSCollectionLayoutItem(layoutSize: itemSize)
+    item.contentInsets      = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
     
-    section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: inset, bottom: 0, trailing: inset)
-    section.interGroupSpacing = inset
-    section.orthogonalScrollingBehavior = .continuous
+    let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+    let horizontalGroup     = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [item, item])
     
+    let verticalGroupSize   = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0/3.0))
+    let verticalGroup       = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize, subitems: [horizontalGroup, horizontalGroup])
+    
+    let section             = NSCollectionLayoutSection(group: verticalGroup)
     return section
   }
 }
+
 // MARK: - UICollectionViewDataSource
 
 extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
@@ -97,11 +115,12 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
     return rocketLaunchCellViewModelElements.count
   }
   
-  
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RocketLaunchCell.reuseID, for: indexPath) as! RocketLaunchCell
-    let rocketLaunchCellViewModelElement = rocketLaunchCellViewModelElements[indexPath.row]
-    cell.apply(viewModel: rocketLaunchCellViewModelElement)
+    let cell = collectionView.dequeueReusableCell(
+      withReuseIdentifier: RocketLaunchCell.reuseID,
+      for: indexPath
+    ) as! RocketLaunchCell
+    cell.apply(viewModel: rocketLaunchCellViewModelElements[indexPath.row])
     return cell
   }
 }
@@ -109,28 +128,21 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension ListOfRocketsLaunchesViewController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    didSelectItemAt indexPath: IndexPath
+  ) {
     rocketLaunchCellViewModelElements[indexPath.item].onTap()
   }
 }
+
 // MARK: - ListOfRocketsLaunchesViewController
 
 extension ListOfRocketsLaunchesViewController: ListOfRocketLaunchesViewProtocol {
-  
-  func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
-    return self
-  }
   
   func reloadCollectionView(rocketLaunchCellModels: [RocketLaunchCell.ViewModel]) {
     self.rocketLaunchCellViewModelElements = rocketLaunchCellModels
     collectionView.reloadData()
   }
   
-}
-// MARK: - Setup appearance
-
-private extension ListOfRocketsLaunchesViewController {
-  func setupAppearance() {
-    collectionView.backgroundColor = .darkGray
-  }
 }

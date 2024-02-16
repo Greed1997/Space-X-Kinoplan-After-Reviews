@@ -9,8 +9,6 @@ import ViperMcFlurry
 import Kingfisher
 import SnapKit
 
-// MARK: - FlickerImageViewController
-
 final class FlickerImageViewController: UIViewController {
   
   // MARK: - Connections
@@ -19,18 +17,14 @@ final class FlickerImageViewController: UIViewController {
   
   // MARK: - UI Properties
   
-  let flickerImageView = UIImageView()
-  
-  // MARK: - Properties
-  
-  var flickerImageViewModel: FlickerImageViewModel!
-  
+  private let flickerImageView = UIImageView()
+  private let scrollView = UIScrollView()
   
   // MARK: - View did load
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    embedViews(subviews: flickerImageView)
+    embedViews()
     setupLayout()
     setupAppereance()
     setupBehavior()
@@ -45,22 +39,32 @@ private extension FlickerImageViewController {
   
   // MARK: - Embed views
   
-  func embedViews(subviews: UIView...) {
+  func embedViews() {
+    scrollView.addSubview(flickerImageView)
+    let subviews = [scrollView]
     subviews.forEach { subview in
-      subview.translatesAutoresizingMaskIntoConstraints = false
       view.addSubview(subview)
     }
+    
   }
   
   // MARK: - Setup layout
   
   func setupLayout() {
-    flickerImageView.snp.makeConstraints { make in
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-      make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
-      make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
+    
+    scrollView.snp.makeConstraints { make in
+      make.top.equalTo(view.snp.top)
+      make.right.equalTo(view.snp.right)
+      make.left.equalTo(view.snp.left)
       make.bottom.equalTo(view.snp.bottom)
     }
+    
+    flickerImageView.snp.makeConstraints { make in
+      make.center.equalToSuperview()
+      make.width.equalToSuperview()
+      make.height.equalToSuperview()
+    }
+    
   }
   
   // MARK: - Setup appereance
@@ -71,66 +75,43 @@ private extension FlickerImageViewController {
     flickerImageView.layer.cornerRadius  = 10
     flickerImageView.layer.masksToBounds = true
     flickerImageView.contentMode = .scaleAspectFill
-    
   }
   
   // MARK: - Setup behavior
   
   func setupBehavior() {
-    let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(gesture:)))
     
+    scrollView.delegate = self
+    scrollView.maximumZoomScale = 4.0
+    scrollView.minimumZoomScale = 1.0
     flickerImageView.isUserInteractionEnabled = true
-    flickerImageView.addGestureRecognizer(pinchGestureRecognizer)
+    
   }
   
 }
 
-// MARK: - Objc methods
+// MARK: - UIScrollViewDelegate
 
-private extension FlickerImageViewController {
+extension FlickerImageViewController: UIScrollViewDelegate {
   
-  @objc
-  func handlePinch(gesture: UIPinchGestureRecognizer) {
-    if gesture.state == .began || gesture.state == .changed {
-      
-      guard let gestureView = gesture.view else { return }
-      gestureView.transform = gestureView.transform.scaledBy(x: gesture.scale, y: gesture.scale)
-      gesture.scale = 1.0
-    }
-    //    if let view = gesture.view {
-    //      view.transform = view.transform.scaledBy(x: gesture.scale, y: gesture.scale)
-    //      gesture.scale = 1.0
-    //    }
+  func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    return flickerImageView
   }
   
-//  @objc
-//  func handlePinch(sender: UIPinchGestureRecognizer) {
-//    guard sender.view != nil else { return }
-//    
-//    if sender.state == .began || sender.state == .changed {
-//      
-//      let currentScale = sender.view!.frame.size.width / sender.view!.bounds.size.width
-//      var newScale     = currentScale * sender.scale
-//      
-//      if newScale < 1 {
-//        newScale = 1
-//      } else if newScale > 4 {
-//        newScale = 4
-//      }
-//      
-//      let transform = CGAffineTransform(scaleX: newScale, y: newScale)
-//      
-//      sender.view?.transform = transform
-//      sender.scale = 1
-//    }
-//  }
+  func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+    UIView.animate(withDuration: 0.2) {
+      scrollView.setZoomScale(1.0, animated: true)
+    }
+  }
+  
 }
 
 // MARK: - FlickerImageViewInputProtocol
 
 extension FlickerImageViewController: FlickerImageViewInputProtocol {
   
-  func viewDidLoadFromOutput(flickerImageViewModel: FlickerImageViewModel) {
-    flickerImageView.kf.setImage(with: flickerImageViewModel.flickerImageURL)
+  func viewDidLoadFromOutput(flickerImageURL: URL) {
+    flickerImageView.kf.setImage(with: flickerImageURL, placeholder: UIImage(named: "Cosmos"))
   }
+  
 }

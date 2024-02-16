@@ -7,20 +7,21 @@
 
 import ViperMcFlurry
 
-// MARK: - ListOfRocketsLaunchesRouter
-
-final class ListOfRocketsLaunchesRouter: ListOfRocketsLaunchesRouterInputProtocol {
+final class ListOfRocketsLaunchesRouter {
   
   // MARK: - Connections
   
   weak var transitionHandler: RamblerViperModuleTransitionHandlerProtocol?
   
-  // MARK: - Open RocketLaunchInfoVC
-  
+}
+
+// MARK: - ListOfRocketsLaunchesRouterInputProtocol
+
+extension ListOfRocketsLaunchesRouter: ListOfRocketsLaunchesRouterProtocol {
   func showRocketLaunchInfo(with rocketLaunch: RocketLaunch) {
     
     let factory = RocketLaunchInfoAssembly()
-
+    
     transitionHandler?.openModule?(usingFactory: factory, withTransitionBlock:{ sourceModuleTransitionHandler, destinationModuleTransititionHandler in
       
       guard let sourceVC = sourceModuleTransitionHandler as? UIViewController,
@@ -29,9 +30,8 @@ final class ListOfRocketsLaunchesRouter: ListOfRocketsLaunchesRouterInputProtoco
       sourceVC.navigationController?.pushViewController(destinationVC, animated: true)
     }).thenChain { moduleInput in
       
-      guard let destinationInput = moduleInput as? RocketLaunchInfoOutputProtocol else { return nil }
+      (moduleInput as? RocketLaunchInfoOutputProtocol)?.setVariable(rocketLaunch)
       
-      destinationInput.setVariable(for: rocketLaunch)
       return nil
     }
   }

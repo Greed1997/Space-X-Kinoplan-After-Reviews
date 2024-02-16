@@ -7,37 +7,39 @@
 
 import ViperMcFlurry
 
-//MARK: - RocketLaunchInfoRouter
-
-final class RocketLaunchInfoRouter: RocketLaunchInfoRouterProtocol {
+final class RocketLaunchInfoRouter {
   
   // MARK: - Connections
   
   weak var transitionHandler: RamblerViperModuleTransitionHandlerProtocol?
   
-  // MARK: - Pop to root
+}
+
+// MARK: - RocketLaunchInfoRouterProtocol
+
+extension RocketLaunchInfoRouter: RocketLaunchInfoRouterProtocol {
   
-  func popToRoot() {
+  func dismiss() {
     transitionHandler?.closeCurrentModule?(true)
   }
   
-  // MARK: - Push flicker images view controller
-  
-  func showFlickerImagesVC(rocketLaunch: RocketLaunch) {
+  func showFlickerImages(rocketLaunch: RocketLaunch) {
     let factory = ListOfFlickerImagesAssembly()
     
-    transitionHandler?.openModule?(usingFactory: factory, withTransitionBlock: { sourceModuleTransitionHandler, destinationModuleTransititionHandler in
-      
-      guard let sourceVC = sourceModuleTransitionHandler as? UIViewController,
-            let destinationVC = destinationModuleTransititionHandler as? ListOfFlickerImagesViewController else { return }
-      
-      sourceVC.navigationController?.pushViewController(destinationVC, animated: true)
-    }).thenChain({ moduleInput in
-      
-      guard let destinationInput = moduleInput as? ListOfFlickerImagesViewOutputProtocol else { return nil }
-      
-      destinationInput.setVariable(for: rocketLaunch)
-      return nil
-    })
+    transitionHandler?.openModule?(
+      usingFactory: factory,
+      withTransitionBlock: { sourceModuleTransitionHandler, destinationModuleTransititionHandler in
+        
+        guard let sourceVC = sourceModuleTransitionHandler as? UIViewController,
+              let destinationVC = destinationModuleTransititionHandler as? ListOfFlickerImagesViewController else { return }
+        
+        sourceVC.navigationController?.pushViewController(destinationVC, animated: true)
+      }).thenChain({ moduleInput in
+        
+        (moduleInput as? ListOfFlickerImagesViewOutputProtocol)!.setVariable(for: rocketLaunch)
+        
+        return nil
+      })
   }
+  
 }

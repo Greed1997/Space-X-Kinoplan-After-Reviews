@@ -7,22 +7,20 @@
 
 import Foundation
 
-// MARK: - ListOfRocketsLaunchesPresenter
-
-final class ListOfRocketsLaunchesPresenter: NSObject, ListOfRocketsLaunchesViewOutputProtocol {
+final class ListOfRocketsLaunchesPresenter: NSObject {
   
   // MARK: - Connections
   
   weak private var view: ListOfRocketsLaunchesViewInputProtocol?
   private var interactor: ListOfRocketsLaunchesInteractorInputProtocol
-  private var router: ListOfRocketsLaunchesRouterInputProtocol
+  private var router: ListOfRocketsLaunchesRouterProtocol
   
   // MARK: - Init
   
-  required init(
+  init(
     view: ListOfRocketsLaunchesViewInputProtocol?,
     interactor: ListOfRocketsLaunchesInteractorInputProtocol,
-    router: ListOfRocketsLaunchesRouterInputProtocol
+    router: ListOfRocketsLaunchesRouterProtocol
   ) {
     self.view = view
     self.interactor = interactor
@@ -31,17 +29,17 @@ final class ListOfRocketsLaunchesPresenter: NSObject, ListOfRocketsLaunchesViewO
   
 }
 
-// MARK: - View Output Methods
+// MARK: - ListOfRocketsLaunchesViewOutputProtocol
 
-extension ListOfRocketsLaunchesPresenter {
+extension ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesViewOutputProtocol {
   
   func viewDidLoad() {
-    interactor.fetchData()
+    interactor.obtainRocketsLaunches()
   }
-
+  
 }
 
-// MARK: - Interactor output methods
+// MARK: - ListOfRocketsLaunchesInteractorOutputProtocol
 
 extension ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesInteractorOutputProtocol {
   
@@ -57,27 +55,21 @@ extension ListOfRocketsLaunchesPresenter: ListOfRocketsLaunchesInteractorOutputP
 private extension ListOfRocketsLaunchesPresenter {
   
   func convert(rocketLaunches: [RocketLaunch]) -> [RocketLaunchCell.ViewModel] {
-    
-    var arrayOfRocketLaunchCellModel: [RocketLaunchCell.ViewModel] = []
-    
-    rocketLaunches.forEach { rocketLaunch in
-      let dateString = rocketLaunch.launchDateLocal!
-      let index = dateString.firstIndex(of: "T")!
-      let date = dateString.prefix(upTo: index)
-      let time = dateString.suffix(from: dateString.index(after: index))
-      let formatedString = "\(date)\n\(time)"
-      
-      arrayOfRocketLaunchCellModel.append(
-        RocketLaunchCell.ViewModel(
-          missionName: rocketLaunch.missionName,
-          missionPatchImageViewURL: URL(string: rocketLaunch.links?.missionPatch ?? ""),
-          missionDate: formatedString,
-          onTap: { [weak self] in
-            guard let self = self else { return }
-            self.router.showRocketLaunchInfo(with: rocketLaunch)
-          })
-        )
+    return rocketLaunches.map { rocketLaunch in
+      return RocketLaunchCell.ViewModel(
+        missionName                  : rocketLaunch.missionName,
+        missionPatchImageViewURL     : URL(string: rocketLaunch.links?.missionPatch ?? ""),
+        missionDate                  : convertDate(date: rocketLaunch.launchDateLocal) ?? rocketLaunch.launchDateLocal,
+        onTap                        : { [weak self] in
+          self?.router.showRocketLaunchInfo(with: rocketLaunch)
+        })}
     }
-    return arrayOfRocketLaunchCellModel
+  
+  func convertDate(date: String) -> String? {
+    guard let index = date.firstIndex(of: "T") else { return date }
+    let dateString        = date.prefix(upTo: index)
+    let timeString        = date.suffix(from: date.index(after: index))
+    return "\(dateString)\n\(timeString)"
   }
+  
 }

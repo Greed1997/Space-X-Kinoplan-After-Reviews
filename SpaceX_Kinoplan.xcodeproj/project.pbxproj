@@ -10,10 +10,10 @@
 		246F72F2BBC53D9FAEF18413 /* Pods_SpaceX_Kinoplan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81131607F37285F178E8C3E8 /* Pods_SpaceX_Kinoplan.framework */; };
 		84A4541E2B7CB67000CA5212 /* FlickerImageViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4541D2B7CB67000CA5212 /* FlickerImageViewProtocols.swift */; };
 		84A454222B7CB80C00CA5212 /* FlickerImageViewRouterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454212B7CB80C00CA5212 /* FlickerImageViewRouterProtocols.swift */; };
-		84A454242B7CB8CD00CA5212 /* FlickerImageViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454232B7CB8CD00CA5212 /* FlickerImageViewRouter.swift */; };
-		84A454272B7CB93A00CA5212 /* FlickerImageViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454262B7CB93A00CA5212 /* FlickerImageViewAssembly.swift */; };
+		84A454242B7CB8CD00CA5212 /* FlickerImageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454232B7CB8CD00CA5212 /* FlickerImageRouter.swift */; };
+		84A454272B7CB93A00CA5212 /* FlickerImageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454262B7CB93A00CA5212 /* FlickerImageAssembly.swift */; };
 		84A454292B7CBB0100CA5212 /* FlickerImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A454282B7CBB0100CA5212 /* FlickerImageViewController.swift */; };
-		84A4542B2B7CBDE400CA5212 /* FlickerImageViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4542A2B7CBDE400CA5212 /* FlickerImageViewPresenter.swift */; };
+		84A4542B2B7CBDE400CA5212 /* FlickerImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4542A2B7CBDE400CA5212 /* FlickerImagePresenter.swift */; };
 		84B4FD772B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD762B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift */; };
 		84B4FD7A2B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD792B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift */; };
 		84B4FD802B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FD7F2B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift */; };
@@ -51,10 +51,10 @@
 		81131607F37285F178E8C3E8 /* Pods_SpaceX_Kinoplan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpaceX_Kinoplan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A4541D2B7CB67000CA5212 /* FlickerImageViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageViewProtocols.swift; sourceTree = "<group>"; };
 		84A454212B7CB80C00CA5212 /* FlickerImageViewRouterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageViewRouterProtocols.swift; sourceTree = "<group>"; };
-		84A454232B7CB8CD00CA5212 /* FlickerImageViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageViewRouter.swift; sourceTree = "<group>"; };
-		84A454262B7CB93A00CA5212 /* FlickerImageViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageViewAssembly.swift; sourceTree = "<group>"; };
+		84A454232B7CB8CD00CA5212 /* FlickerImageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageRouter.swift; sourceTree = "<group>"; };
+		84A454262B7CB93A00CA5212 /* FlickerImageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageAssembly.swift; sourceTree = "<group>"; };
 		84A454282B7CBB0100CA5212 /* FlickerImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageViewController.swift; sourceTree = "<group>"; };
-		84A4542A2B7CBDE400CA5212 /* FlickerImageViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImageViewPresenter.swift; sourceTree = "<group>"; };
+		84A4542A2B7CBDE400CA5212 /* FlickerImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImagePresenter.swift; sourceTree = "<group>"; };
 		84B4FD762B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesViewControllerProtocols.swift; sourceTree = "<group>"; };
 		84B4FD792B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketLaunchInfoViewProtocols.swift; sourceTree = "<group>"; };
 		84B4FD7F2B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRocketsLaunchesInteractorProtocols.swift; sourceTree = "<group>"; };
@@ -103,6 +103,7 @@
 		84A454192B7CB53F00CA5212 /* FlickerImageView */ = {
 			isa = PBXGroup;
 			children = (
+				84A454252B7CB92E00CA5212 /* Assembly */,
 				84A4541F2B7CB7DC00CA5212 /* Router */,
 				84A4541A2B7CB64C00CA5212 /* View */,
 				84A4541B2B7CB65200CA5212 /* Presenter */,
@@ -122,7 +123,7 @@
 		84A4541B2B7CB65200CA5212 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				84A4542A2B7CBDE400CA5212 /* FlickerImageViewPresenter.swift */,
+				84A4542A2B7CBDE400CA5212 /* FlickerImagePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -138,9 +139,8 @@
 		84A4541F2B7CB7DC00CA5212 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				84A454252B7CB92E00CA5212 /* Assembly */,
 				84A454202B7CB7E200CA5212 /* Protocols */,
-				84A454232B7CB8CD00CA5212 /* FlickerImageViewRouter.swift */,
+				84A454232B7CB8CD00CA5212 /* FlickerImageRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -156,7 +156,7 @@
 		84A454252B7CB92E00CA5212 /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
-				84A454262B7CB93A00CA5212 /* FlickerImageViewAssembly.swift */,
+				84A454262B7CB93A00CA5212 /* FlickerImageAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -593,12 +593,12 @@
 				84E0ED3D2B63EE3F00D53D62 /* ListOfFlickerImagesPresenter.swift in Sources */,
 				84B4FD902B74CFFC00CAD3B4 /* ListOfRocketsLaunchesRouter.swift in Sources */,
 				84B4FD772B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift in Sources */,
-				84A454272B7CB93A00CA5212 /* FlickerImageViewAssembly.swift in Sources */,
+				84A454272B7CB93A00CA5212 /* FlickerImageAssembly.swift in Sources */,
 				84B4FD802B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift in Sources */,
 				84B4FD962B74D03600CAD3B4 /* RocketLaunchInfoAssembly.swift in Sources */,
 				84B4FD9D2B74D0AC00CAD3B4 /* ListOfRocketsLaunchesRouterProtocols.swift in Sources */,
 				84E0ED1D2B627BC600D53D62 /* ListOfFlickerImagesViewController.swift in Sources */,
-				84A4542B2B7CBDE400CA5212 /* FlickerImageViewPresenter.swift in Sources */,
+				84A4542B2B7CBDE400CA5212 /* FlickerImagePresenter.swift in Sources */,
 				84B4FDAE2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift in Sources */,
 				84E0ED2B2B639EEA00D53D62 /* ListOfRocketsLaunchesPresenter.swift in Sources */,
 				84B4FDA82B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift in Sources */,
@@ -609,7 +609,7 @@
 				84E0ED322B63CAFC00D53D62 /* RocketLaunchInfoPresenter.swift in Sources */,
 				84B4FD992B74D04400CAD3B4 /* RocketLaunchInfoRouter.swift in Sources */,
 				84E0ED1F2B627BFA00D53D62 /* ListOfRocketLaunchesViewController.swift in Sources */,
-				84A454242B7CB8CD00CA5212 /* FlickerImageViewRouter.swift in Sources */,
+				84A454242B7CB8CD00CA5212 /* FlickerImageRouter.swift in Sources */,
 				84B4FDA62B74D0FC00CAD3B4 /* RocketLaunchInfoRouterProtocols.swift in Sources */,
 				84E0ED2D2B639EF700D53D62 /* ListOfRocketsLaunchesInteractor.swift in Sources */,
 				84B4FD7A2B74CD9200CAD3B4 /* RocketLaunchInfoViewProtocols.swift in Sources */,

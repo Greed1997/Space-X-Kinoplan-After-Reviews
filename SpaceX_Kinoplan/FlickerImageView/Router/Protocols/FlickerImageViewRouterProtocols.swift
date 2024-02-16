@@ -1,13 +1,12 @@
 //
-//  FlickerImageViewRouterProtocols.swift
+//  FlickerImageRouterProtocols.swift
 //  SpaceX_Kinoplan
 //
 //  Created by Александр on 14.02.2024.
 //
 
-import ViperMcFlurry
+import Foundation
 
-protocol FlickerImageViewRouterProtocol: AnyObject {
-  var transitionHandler: RamblerViperModuleTransitionHandlerProtocol? { get set }
-  func goToListOfFlickerImages()
+protocol FlickerImageRouterProtocol: AnyObject {
+  func dismiss()
 }

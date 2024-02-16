@@ -10,8 +10,7 @@ import Foundation
 // MARK: - ListOfRocketsLaunchesInteractorInputProtocol
 
 protocol ListOfRocketsLaunchesInteractorInputProtocol: AnyObject {
-  init(networkService: NetworkServiceProtocol)
-  func fetchData()
+  func obtainRocketsLaunches()
 }
 
 // MARK: - ListOfRocketsLaunchesInteractorOutputProtocol

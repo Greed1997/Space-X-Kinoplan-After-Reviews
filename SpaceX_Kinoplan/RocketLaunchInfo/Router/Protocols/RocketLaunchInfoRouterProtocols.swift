@@ -5,10 +5,9 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import ViperMcFlurry
+import Foundation
 
 protocol RocketLaunchInfoRouterProtocol: AnyObject {
-  var transitionHandler: RamblerViperModuleTransitionHandlerProtocol? { get set }
-  func showFlickerImagesVC(rocketLaunch: RocketLaunch)
-  func popToRoot()
+  func showFlickerImages(rocketLaunch: RocketLaunch)
+  func dismiss()
 }

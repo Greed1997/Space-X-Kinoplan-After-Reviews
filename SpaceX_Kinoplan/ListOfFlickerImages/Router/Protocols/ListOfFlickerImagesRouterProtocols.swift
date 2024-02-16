@@ -5,11 +5,9 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import ViperMcFlurry
+import Foundation
 
 protocol ListOfFlickerImagesRouterProtocol: AnyObject {
-  var transitionHandler: RamblerViperModuleTransitionHandlerProtocol? { get set }
-  func goToRocketLaunchInfo()
-  func goToViewControllerWithSelectedFlickerImage(flickerImageURL: URL)
+  func dismiss()
+  func presentViewControllerWithSelectedFlickerImage(flickerImageURL: URL)
 }
-

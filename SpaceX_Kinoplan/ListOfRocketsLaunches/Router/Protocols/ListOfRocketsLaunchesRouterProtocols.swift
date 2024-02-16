@@ -5,11 +5,9 @@
 //  Created by Александр on 08.02.2024.
 //
 
-import ViperMcFlurry
+import Foundation
 
-protocol ListOfRocketsLaunchesRouterInputProtocol: AnyObject {
-  var transitionHandler: RamblerViperModuleTransitionHandlerProtocol? { get set }
-  
+protocol ListOfRocketsLaunchesRouterProtocol: AnyObject {
   func showRocketLaunchInfo(with rocketLaunch: RocketLaunch)
 }
 

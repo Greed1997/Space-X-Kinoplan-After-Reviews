@@ -7,118 +7,97 @@
 
 import UIKit
 
-// MARK: - RocketLaunchInfoPresenter
-
-final class RocketLaunchInfoPresenter: NSObject, RocketLaunchInfoOutputProtocol {
+final class RocketLaunchInfoPresenter: NSObject {
   
   // MARK: - Connections
   
-  var router: RocketLaunchInfoRouterProtocol!
   weak var view: RocketLaunchInfoViewInputProtocol?
+  var router: RocketLaunchInfoRouterProtocol!
   
   // MARK: - Properties
   
-  var rocketLaunch: RocketLaunch!
+  private var rocketLaunch: RocketLaunch!
   
   // MARK: - Init
   
-  required init(
-    router: RocketLaunchInfoRouterProtocol,
-    view: RocketLaunchInfoViewInputProtocol
+  init(
+    view: RocketLaunchInfoViewInputProtocol,
+    router: RocketLaunchInfoRouterProtocol
   ) {
-    self.router = router
     self.view = view
+    self.router = router
   }
   
-  //MARK: - View did load
-  
-  func viewDidLoad() {
-    convert(rocketLaunch: rocketLaunch)
-  }
-  
-  
-  // MARK: - Go to the list of flicker images view controller
-  
-  func flickerImagesButtonTapped() {
-    if let rocketLaunch {
-      router.showFlickerImagesVC(rocketLaunch: rocketLaunch)
-    }
-  }
-  
-  // MARK: - Go to the list of rocket launches view controller
-  
-  func popToRoot() {
-    router.popToRoot()
-  }
-}
-
-// MARK: - Set started rocket launch to vc
-
-extension RocketLaunchInfoPresenter {
-  func setVariable(for rocketLaunch: RocketLaunch) {
-    self.rocketLaunch = rocketLaunch
-  }
 }
 
 // MARK: - Convert rocket launch to rocket launch info view model
 
 private extension RocketLaunchInfoPresenter {
-
+  
   func convert(rocketLaunch: RocketLaunch) {
     
-    let rocketLaunchInfoViewModel = RocketLaunchInfoViewModel( // где я должен держать структуру x.RocketLaunchInfoViewModel; x - ?
+    let rocketLaunchInfoViewModel = RocketLaunchInfoViewModel(
       missionName: "Mission name: " + "\(rocketLaunch.missionName!)",
-      missionPatchImageViewURL: URL(string: rocketLaunch.links?.missionPatch ?? "https://www.eso.org/public/archives/images/screen/eso1124d.jpg"),
-      missionDate: "Date: " + "\(rocketLaunch.launchDateLocal!)",
+      missionPatchImageViewURL: rocketLaunch.links?.missionPatch.flatMap{ URL(string: $0) },
+      missionDate: "Date: " + "\(rocketLaunch.launchDateLocal)",
       youtubeLink: rocketLaunch.links?.youtubeId,
       wikiLink: rocketLaunch.links?.wikipedia,
       redditLink: rocketLaunch.links?.redditLaunch,
-      articleLink: rocketLaunch.links?.articleLink, 
-      flickerImagesURLsStrings: rocketLaunch.links?.flickrImages)
+      articleLink: rocketLaunch.links?.articleLink,
+      flickerImages: rocketLaunch.links?.flickrImages)
     
-    view?.viewDidLoadFromOutput(rocketLaunchInfoViewModel: rocketLaunchInfoViewModel)
+    view?.set(viewModel: rocketLaunchInfoViewModel)
   }
 }
 
-//MARK: - Links functions
+// MARK: - RocketLaunchInfoOutputProtocol
 
-extension RocketLaunchInfoPresenter {
+extension RocketLaunchInfoPresenter: RocketLaunchInfoOutputProtocol {
   
-  func youtubeButtonTapped() {
-    if let videoID = rocketLaunch.links?.youtubeId {
-      if let url = URL(string: "youtube://www.youtube.com/watch?v=\(videoID)") {
-        if UIApplication.shared.canOpenURL(url) {
-          UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-          if let webURL = URL(string: "https://www.youtube.com/watch?v=\(videoID)") {
-            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
-          }
-        }
-      }
+  func viewDidLoad() {
+    convert(rocketLaunch: rocketLaunch)
+  }
+  
+  func onYoutubeButtonTapped() {
+    if  let youtubeLink = rocketLaunch?.links?.videoLink,
+        let url = URL(string: youtubeLink) {
+      UIApplication.shared.open(url)
     }
   }
   
-  func wikiButtonTapped() {
-    if let wikiLink = rocketLaunch?.links?.wikipedia {
-      if let url = URL(string: wikiLink) {
-        UIApplication.shared.open(url)
-      }
+  func onWikiButtonTapped() {
+    if  let wikiLink = rocketLaunch?.links?.wikipedia,
+        let url = URL(string: wikiLink) {
+      UIApplication.shared.open(url)
     }
   }
   
-  func redditButtonTapped() {
-    if let redditLink = rocketLaunch?.links?.redditLaunch {
-      if let url = URL(string: redditLink) {
-        UIApplication.shared.open(url)
-      }
+  func onRedditButtonTapped() {
+    if  let redditLink = rocketLaunch?.links?.redditLaunch,
+        let url = URL(string: redditLink) {
+      UIApplication.shared.open(url)
     }
   }
   
-  func articleButtonTapped() {
-    if let articleLink = rocketLaunch?.links?.articleLink {
-      if let url = URL(string: articleLink) {
-        UIApplication.shared.open(url)
-      }
+  func onArticleButtonTapped() {
+    if  let articleLink = rocketLaunch?.links?.articleLink,
+        let url = URL(string: articleLink) {
+      UIApplication.shared.open(url)
     }
   }
+  
+  func onFlickerImagesButtonTapped() {
+    if let rocketLaunch {
+      router.showFlickerImages(rocketLaunch: rocketLaunch)
+    }
+  }
+  
+  func dismiss() {
+    router.dismiss()
+  }
+  
+  func setVariable(_ rocketLaunch: RocketLaunch) {
+    self.rocketLaunch = rocketLaunch
+  }
+  
 }

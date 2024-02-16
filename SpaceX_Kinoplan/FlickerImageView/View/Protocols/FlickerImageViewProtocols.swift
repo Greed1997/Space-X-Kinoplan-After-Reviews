@@ -7,33 +7,26 @@
 
 import ViperMcFlurry
 
+struct ViewModel {
+  let title: String
+  var flickerImageViewModel: [FlickerImageCell.FlickerImageViewModel]
+}
+
 // MARK: - FlickerImageViewInputProtocol
 
 protocol FlickerImageViewInputProtocol: AnyObject {
-  func viewDidLoadFromOutput(flickerImageViewModel: FlickerImageViewModel)
+  func viewDidLoadFromOutput(flickerImageURL: URL)
 }
 
 // MARK: - FlickerImageViewOutputProtocol
 
 protocol FlickerImageViewOutputProtocol: AnyObject, RamblerViperModuleInput {
-  init(
-    router: FlickerImageViewRouterProtocol,
-    view: FlickerImageViewInputProtocol
-  )
   func viewDidLoad()
-  func setVariable(for flickerImageURL: URL)
+  func setVariable(_ flickerImageURL: URL)
 }
-
 
 // MARK: - FlickerImageViewProtocol
 
 protocol FlickerImageViewProtocol: AnyObject, FlickerImageViewInputProtocol, RamblerViperModuleTransitionHandlerProtocol {
   var output: FlickerImageViewOutputProtocol? { get set }
-}
-
-// MARK: - FlickerImageViewModel
-
-struct FlickerImageViewModel {
-  
-  let flickerImageURL: URL
 }

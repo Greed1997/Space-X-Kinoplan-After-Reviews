@@ -9,7 +9,7 @@ import RxSwift
 
 // MARK: - ListOfRocketsLaunchesInteractor
 
-final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInputProtocol {
+final class ListOfRocketsLaunchesInteractor {
   
   // MARK: - Connections
   
@@ -17,7 +17,7 @@ final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInpu
   
   // MARK: - Services
   
-  private var networkService: NetworkServiceProtocol
+  private let networkService: NetworkServiceProtocol
   
   // MARK: - Tools
   
@@ -31,25 +31,25 @@ final class ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInpu
     self.networkService = networkService
   }
   
+}
+
+// MARK: - ListOfRocketsLaunchesInteractorInputProtocol
+
+extension ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInputProtocol {
   
-  // MARK: - Interactor input protocol methods
-  
-  func fetchData() {
-    networkService.fetchAllRocketLaunchesData(from: "https://api.spacexdata.com/v3/launches")
+  func obtainRocketsLaunches() {
+    networkService.fetchAllRocketLaunchesData()
       .subscribe(onNext: { [weak self] rocketLaunches in
         
-      guard let self = self else { return }
+        self?.output?.dataFetched(rocketLaunches: rocketLaunches)
+      }) { error in
         
-      self.output?.dataFetched(rocketLaunches: rocketLaunches)
-    }) { error in
-      
-      if let rocketError = error as? RocketError {
-        print(rocketError.localizedDescription)
-      } else {
-        print(error.localizedDescription)
-      }
-    }.disposed(by: bag)
-    
+        if let rocketError = error as? RocketError {
+          print(rocketError.localizedDescription)
+        } else {
+          print(error.localizedDescription)
+        }
+      }.disposed(by: bag)
   }
   
 }

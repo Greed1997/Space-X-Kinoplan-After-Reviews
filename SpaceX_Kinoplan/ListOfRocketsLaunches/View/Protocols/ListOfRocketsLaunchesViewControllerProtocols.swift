@@ -15,11 +15,6 @@ protocol ListOfRocketsLaunchesViewInputProtocol: AnyObject {
 // MARK: - ListOfRocketsLaunchesViewControllerOutputProtocol
 
 protocol ListOfRocketsLaunchesViewOutputProtocol: AnyObject {
-  init(
-    view: ListOfRocketsLaunchesViewInputProtocol?,
-    interactor: ListOfRocketsLaunchesInteractorInputProtocol,
-    router: ListOfRocketsLaunchesRouterInputProtocol
-  )
   func viewDidLoad()
   func dataFetched(rocketLaunches: [RocketLaunch])
 }

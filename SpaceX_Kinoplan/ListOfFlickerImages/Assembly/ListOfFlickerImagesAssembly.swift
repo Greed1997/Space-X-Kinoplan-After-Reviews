@@ -17,6 +17,7 @@ final class ListOfFlickerImagesAssembly: NSObject, RamblerViperModuleFactoryProt
     vc.output = presenter
     
     router.transitionHandler = vc
+    
     return vc
   }
   

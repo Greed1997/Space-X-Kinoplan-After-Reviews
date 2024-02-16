@@ -17,13 +17,15 @@ final class RocketLaunchInfoAssembly: NSObject, RamblerViperModuleFactoryProtoco
     router.transitionHandler = viewController
     
     let presenter = RocketLaunchInfoPresenter(
-      router: router,
-      view: viewController
+      view: viewController,
+      router: router
     )
     
     viewController.output = presenter
     
     return viewController
+    
   }
+  
 }
 

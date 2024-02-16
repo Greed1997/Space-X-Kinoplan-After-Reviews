@@ -10,21 +10,15 @@ import ViperMcFlurry
 // MARK: - ListOfFlickerImagesViewInputProtocol
 
 protocol ListOfFlickerImagesViewInputProtocol: AnyObject {
-  func reloadCollectionView(flickerImagesCellModels: [FlickerImageCell.ViewModel])
-  func setTitleVC(title: String)
+  func setData(viewModel: ViewModel)
 }
-
 
 // MARK: - ListOfFlickerImagesViewOutputProtocol
 
 protocol ListOfFlickerImagesViewOutputProtocol: AnyObject, RamblerViperModuleInput {
-  init(
-    view: ListOfFlickerImagesViewInputProtocol,
-    router: ListOfFlickerImagesRouterProtocol
-  )
   func viewDidLoad()
   func setVariable(for rocketLaunch: RocketLaunch)
-  func showViewControllerWithSelectedFlickerImage(index: Int)
+  func dismiss()
 }
 
 // MARK: - ListOfFlickerImagesViewProtocol
