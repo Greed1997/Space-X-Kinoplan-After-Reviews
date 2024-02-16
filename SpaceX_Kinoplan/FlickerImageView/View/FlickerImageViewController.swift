@@ -41,11 +41,7 @@ private extension FlickerImageViewController {
   
   func embedViews() {
     scrollView.addSubview(flickerImageView)
-    let subviews = [scrollView]
-    subviews.forEach { subview in
-      view.addSubview(subview)
-    }
-    
+    view.addSubview(scrollView)
   }
   
   // MARK: - Setup layout
@@ -98,7 +94,11 @@ extension FlickerImageViewController: UIScrollViewDelegate {
     return flickerImageView
   }
   
-  func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+  func scrollViewDidEndZooming(
+    _ scrollView: UIScrollView,
+    with view: UIView?,
+    atScale scale: CGFloat
+  ) {
     UIView.animate(withDuration: 0.2) {
       scrollView.setZoomScale(1.0, animated: true)
     }
@@ -111,7 +111,7 @@ extension FlickerImageViewController: UIScrollViewDelegate {
 extension FlickerImageViewController: FlickerImageViewInputProtocol {
   
   func viewDidLoadFromOutput(flickerImageURL: URL) {
-    flickerImageView.kf.setImage(with: flickerImageURL, placeholder: UIImage(named: "Cosmos"))
+    flickerImageView.kf.setImage(with: flickerImageURL, placeholder: UIImage.placeholder)
   }
   
 }

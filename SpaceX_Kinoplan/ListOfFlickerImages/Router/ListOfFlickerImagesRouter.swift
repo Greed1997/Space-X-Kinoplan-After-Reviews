@@ -19,7 +19,7 @@ final class ListOfFlickerImagesRouter {
 
 extension ListOfFlickerImagesRouter: ListOfFlickerImagesRouterProtocol {
   
-  func presentViewControllerWithSelectedFlickerImage(flickerImageURL: URL) {
+  func presentFlickerImageModule(flickerImageURL: URL) {
     
     let factory = FlickerImageAssembly()
     

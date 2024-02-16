@@ -19,10 +19,6 @@ extension FlickerImageCell {
 
 final class FlickerImageCell: UICollectionViewCell {
   
-  // MARK: - reuse ID
-  
-  static var reuseID: String = .cell
-  
   // MARK: - UI Properties
   
   private let flickerImageView = UIImageView()
@@ -35,7 +31,6 @@ final class FlickerImageCell: UICollectionViewCell {
     embedSubviews()
     setupLayout()
     setupAppearance()
-    
   }
   
   required init?(coder: NSCoder) {
@@ -51,10 +46,7 @@ private extension FlickerImageCell {
   // MARK: - Embed subviews for stackView
   
   func embedSubviews() {
-    let subviews = [flickerImageView]
-    subviews.forEach { subview in
-      addSubview(subview)
-    }
+    addSubview(flickerImageView)
   }
   
   // MARK: - Setup layout
@@ -87,7 +79,7 @@ extension FlickerImageCell {
   func apply(viewModel: FlickerImageCell.FlickerImageViewModel) {
     flickerImageView.kf.setImage(
       with: viewModel.imageURL,
-      placeholder: UIImage(named: "Cosmos"),
+      placeholder: UIImage.placeholder,
       options: [
         .scaleFactor(contentScaleFactor),
         .transition(.fade(1)),
@@ -95,10 +87,4 @@ extension FlickerImageCell {
       ])
   }
   
-}
-
-// MARK: - Extension String for cell reuseID
-
-private extension String {
-  static let cell = "FlickerImageCell"
 }

@@ -9,5 +9,5 @@ import Foundation
 
 protocol ListOfFlickerImagesRouterProtocol: AnyObject {
   func dismiss()
-  func presentViewControllerWithSelectedFlickerImage(flickerImageURL: URL)
+  func presentFlickerImageModule(flickerImageURL: URL)
 }

@@ -38,12 +38,10 @@ final class ListOfRocketsLaunchesInteractor {
 extension ListOfRocketsLaunchesInteractor: ListOfRocketsLaunchesInteractorInputProtocol {
   
   func obtainRocketsLaunches() {
-    networkService.fetchAllRocketLaunchesData()
+    networkService.fetchRocketLaunches()
       .subscribe(onNext: { [weak self] rocketLaunches in
-        
         self?.output?.dataFetched(rocketLaunches: rocketLaunches)
       }) { error in
-        
         if let rocketError = error as? RocketError {
           print(rocketError.localizedDescription)
         } else {

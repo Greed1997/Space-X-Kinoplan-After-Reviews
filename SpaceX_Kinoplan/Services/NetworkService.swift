@@ -12,14 +12,14 @@ import RxSwift
 // MARK: - NetworkServiceProtocol
 
 protocol NetworkServiceProtocol {
-  func fetchAllRocketLaunchesData() -> Observable<[RocketLaunch]>
+  func fetchRocketLaunches() -> Observable<[RocketLaunch]>
 }
 
 // MARK: - NetworkService
 
 final class NetworkService: NetworkServiceProtocol {
   
-  func fetchAllRocketLaunchesData() -> Observable<[RocketLaunch]> {
+  func fetchRocketLaunches() -> Observable<[RocketLaunch]> {
     guard let url = URL(string: "https://api.spacexdata.com/v3/launches") else {
       return .error(RocketError.badURL)
     }

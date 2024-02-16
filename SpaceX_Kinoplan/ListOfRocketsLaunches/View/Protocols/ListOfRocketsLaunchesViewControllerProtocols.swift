@@ -10,13 +10,12 @@ import ViperMcFlurry
 // MARK: - ListOfRocketsLaunchesViewInputProtocol
 
 protocol ListOfRocketsLaunchesViewInputProtocol: AnyObject {
-  func reloadCollectionView(rocketLaunchCellModels: [RocketLaunchCell.ViewModel])
+  func set(viewModel: [RocketLaunchCell.ViewModel])
 }
 // MARK: - ListOfRocketsLaunchesViewControllerOutputProtocol
 
 protocol ListOfRocketsLaunchesViewOutputProtocol: AnyObject {
   func viewDidLoad()
-  func dataFetched(rocketLaunches: [RocketLaunch])
 }
 
 // MARK: - ListOfRocketLaunchesViewProtocol

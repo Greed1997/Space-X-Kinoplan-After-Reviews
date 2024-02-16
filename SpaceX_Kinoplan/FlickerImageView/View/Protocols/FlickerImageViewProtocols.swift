@@ -7,11 +7,6 @@
 
 import ViperMcFlurry
 
-struct ViewModel {
-  let title: String
-  var flickerImageViewModel: [FlickerImageCell.FlickerImageViewModel]
-}
-
 // MARK: - FlickerImageViewInputProtocol
 
 protocol FlickerImageViewInputProtocol: AnyObject {

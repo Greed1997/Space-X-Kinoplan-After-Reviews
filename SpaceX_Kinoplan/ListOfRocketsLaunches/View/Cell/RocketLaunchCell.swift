@@ -21,18 +21,12 @@ extension RocketLaunchCell {
 }
 
 final class RocketLaunchCell: UICollectionViewCell {
-  
-  // MARK: - Reuse ID
-  
-  static var reuseID: String = .cell
-  
+    
   // MARK: - UI Properties
   
-  private let missionNameLabel = UILabel()
-  
+  private let missionNameLabel      = UILabel()
   private let missionPatchImageView = UIImageView()
-  
-  private let dateLabel = UILabel()
+  private let dateLabel             = UILabel()
   
   // MARK: - Init
   
@@ -56,12 +50,11 @@ private extension RocketLaunchCell {
   // MARK: - Embed subviews for stackView
   
   func embedViews() {
-    let subviews = [
+    [
       missionNameLabel,
       missionPatchImageView,
       dateLabel
-    ]
-    subviews.forEach { subview in
+    ].forEach { subview in
       addSubview(subview)
     }
   }
@@ -125,17 +118,11 @@ extension RocketLaunchCell {
     
     missionPatchImageView.kf.setImage(
       with: viewModel.missionPatchImageViewURL,
-      placeholder: UIImage(named: "Cosmos"),
+      placeholder: UIImage.placeholder,
       options: [
         .scaleFactor(contentScaleFactor),
         .transition(.fade(1)),
         .cacheOriginalImage
       ])
   }
-}
-
-// MARK: - Extension String for cell reuseID/
-
-private extension String {
-  static let cell = "RocketLaunchCell"
 }

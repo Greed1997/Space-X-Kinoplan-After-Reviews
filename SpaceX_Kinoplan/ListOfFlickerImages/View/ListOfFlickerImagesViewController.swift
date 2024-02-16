@@ -18,12 +18,13 @@ final class ListOfFlickerImagesViewController: UIViewController {
   
   // MARK: - UI Properties
   
-  private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+  private let collectionView = UICollectionView(
+    frame: .zero,
+    collectionViewLayout: UICollectionViewFlowLayout()
+  )
   private let imageView = UIImageView()
   
   private let backButton = UIButton(type: .system)
-  
-  private lazy var newBackLeftBarButtonItem = UIBarButtonItem(customView: backButton)
   
   // MARK: - Properties
   
@@ -60,7 +61,7 @@ private extension ListOfFlickerImagesViewController {
   func setupAppearance() {
     collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     collectionView.backgroundColor = .darkGray
-    collectionView.collectionViewLayout = createCompositionalLayout()
+    collectionView.collectionViewLayout = createFlowLayout()
     (collectionView.collectionViewLayout as? UICollectionViewFlowLayout).flatMap {
       $0.scrollDirection = .horizontal
     }
@@ -70,18 +71,18 @@ private extension ListOfFlickerImagesViewController {
     backButton.titleLabel?.font         = UIFont.systemFont(ofSize: 18)
     backButton.semanticContentAttribute = .forceRightToLeft
     
-    navigationItem.leftBarButtonItem = newBackLeftBarButtonItem
-    
     navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     navigationController?.navigationBar.shadowImage = UIImage()
     navigationController?.navigationBar.isTranslucent = true
   }
   
   func setupBehavior() {
-    collectionView.register(FlickerImageCell.self, forCellWithReuseIdentifier: FlickerImageCell.reuseID)
+    collectionView.register(FlickerImageCell.self, forCellWithReuseIdentifier: .cell)
     
     collectionView.delegate = self
     collectionView.dataSource = self
+    
+    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
     
     backButton.addTarget(
       self,
@@ -92,35 +93,22 @@ private extension ListOfFlickerImagesViewController {
   
 }
 
-// MARK: - Create compositional layout
+// MARK: - Create flow layout
 
 private extension ListOfFlickerImagesViewController {
   
-  // MARK: - Create flicker images layout
-  
-  func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-    let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-      return self.createFlickerImagesSection()
-    }
+  func createFlowLayout() -> UICollectionViewFlowLayout {
+    let layout = UICollectionViewFlowLayout()
+    layout.itemSize = CGSize(
+      width : self.view.bounds.width / 2.2,
+      height: self.view.bounds.height / 3.3
+    )
+    layout.sectionInset            = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    layout.minimumInteritemSpacing = 10
+    layout.minimumLineSpacing      = 10
     return layout
   }
-  
-  // MARK: - Create flicker images section
-  
-  func createFlickerImagesSection() -> NSCollectionLayoutSection {
-    let itemSize            = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
-    let item                = NSCollectionLayoutItem(layoutSize: itemSize)
-    item.contentInsets      = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-    
-    let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-    let horizontalGroup     = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [item, item])
-    
-    let verticalGroupSize   = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0/3.0))
-    let verticalGroup       = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize, subitems: [horizontalGroup, horizontalGroup])
-    
-    let section             = NSCollectionLayoutSection(group: verticalGroup)
-    return section
-  }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -135,9 +123,12 @@ extension ListOfFlickerImagesViewController: UICollectionViewDataSource {
     flickerImageViewModel.count
   }
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    cellForItemAt indexPath: IndexPath
+  ) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(
-      withReuseIdentifier: FlickerImageCell.reuseID,
+      withReuseIdentifier: .cell,
       for: indexPath
     ) as! FlickerImageCell
     
@@ -151,6 +142,7 @@ extension ListOfFlickerImagesViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension ListOfFlickerImagesViewController: UICollectionViewDelegate {
+  
   func collectionView(
     _ collectionView: UICollectionView,
     didSelectItemAt indexPath: IndexPath
@@ -164,7 +156,7 @@ extension ListOfFlickerImagesViewController: UICollectionViewDelegate {
 
 private extension ListOfFlickerImagesViewController {
   @objc func onBackButtonItemButtonTapped() {
-    output?.dismiss()
+    output?.onBackButtonTapped()
   }
 }
 
@@ -172,10 +164,14 @@ private extension ListOfFlickerImagesViewController {
 
 extension ListOfFlickerImagesViewController: ListOfFlickerImagesViewProtocol {
   
-  func setData(viewModel: ViewModel) {
+  func setData(viewModel: FlickerImageViewModel) {
     navigationItem.title = viewModel.title
     self.flickerImageViewModel = viewModel.flickerImageViewModel
     collectionView.reloadData()
   }
   
+}
+
+private extension String {
+  static let cell = "FlickerImageCell"
 }

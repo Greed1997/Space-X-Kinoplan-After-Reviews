@@ -7,6 +7,20 @@
 
 import ViperMcFlurry
 
+struct RocketLaunchInfoViewModel {
+  
+  let missionName: String
+  let missionPatchImageViewURL: URL?
+  let missionDate: String
+  
+  let youtubeLink: String?
+  let wikiLink: String?
+  let redditLink: String?
+  let articleLink: String?
+  let flickerImages: [String]?
+  
+}
+
 // MARK: - RocketLaunchInfoViewInputProtocol
 
 protocol RocketLaunchInfoViewInputProtocol: AnyObject {
@@ -22,7 +36,7 @@ protocol RocketLaunchInfoOutputProtocol: AnyObject, RamblerViperModuleInput {
   func onRedditButtonTapped()
   func onArticleButtonTapped()
   func onFlickerImagesButtonTapped()
-  func dismiss()
+  func onBackButtonTapped()
   func setVariable(_ rocketLaunch: RocketLaunch)
 }
 
@@ -30,20 +44,4 @@ protocol RocketLaunchInfoOutputProtocol: AnyObject, RamblerViperModuleInput {
 
 protocol RocketLaunchInfoViewProtocol: AnyObject, RocketLaunchInfoViewInputProtocol, RamblerViperModuleTransitionHandlerProtocol {
   var output: RocketLaunchInfoOutputProtocol? { get set }
-}
-
-// MARK: - RocketLaunchInfoViewModel
-
-struct RocketLaunchInfoViewModel {
-  
-  let missionName: String
-  let missionPatchImageViewURL: URL?
-  let missionDate: String
-  
-  let youtubeLink: String?
-  let wikiLink: String?
-  let redditLink: String?
-  let articleLink: String?
-  let flickerImages: [String]?
-  
 }

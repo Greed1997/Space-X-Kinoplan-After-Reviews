@@ -18,6 +18,7 @@ final class ListOfRocketsLaunchesRouter {
 // MARK: - ListOfRocketsLaunchesRouterInputProtocol
 
 extension ListOfRocketsLaunchesRouter: ListOfRocketsLaunchesRouterProtocol {
+  
   func showRocketLaunchInfo(with rocketLaunch: RocketLaunch) {
     
     let factory = RocketLaunchInfoAssembly()
@@ -35,4 +36,5 @@ extension ListOfRocketsLaunchesRouter: ListOfRocketsLaunchesRouterProtocol {
       return nil
     }
   }
+  
 }

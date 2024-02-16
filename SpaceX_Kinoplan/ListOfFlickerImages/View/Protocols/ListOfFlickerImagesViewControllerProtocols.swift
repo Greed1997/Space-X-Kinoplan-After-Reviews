@@ -7,10 +7,15 @@
 
 import ViperMcFlurry
 
+struct FlickerImageViewModel {
+  let title: String
+  var flickerImageViewModel: [FlickerImageCell.FlickerImageViewModel]
+}
+
 // MARK: - ListOfFlickerImagesViewInputProtocol
 
 protocol ListOfFlickerImagesViewInputProtocol: AnyObject {
-  func setData(viewModel: ViewModel)
+  func setData(viewModel: FlickerImageViewModel)
 }
 
 // MARK: - ListOfFlickerImagesViewOutputProtocol
@@ -18,7 +23,7 @@ protocol ListOfFlickerImagesViewInputProtocol: AnyObject {
 protocol ListOfFlickerImagesViewOutputProtocol: AnyObject, RamblerViperModuleInput {
   func viewDidLoad()
   func setVariable(for rocketLaunch: RocketLaunch)
-  func dismiss()
+  func onBackButtonTapped()
 }
 
 // MARK: - ListOfFlickerImagesViewProtocol

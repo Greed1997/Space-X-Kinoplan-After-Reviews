@@ -92,7 +92,7 @@ extension RocketLaunchInfoPresenter: RocketLaunchInfoOutputProtocol {
     }
   }
   
-  func dismiss() {
+  func onBackButtonTapped() {
     router.dismiss()
   }
   

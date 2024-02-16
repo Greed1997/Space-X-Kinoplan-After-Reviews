@@ -36,7 +36,7 @@ extension RocketLaunchInfoRouter: RocketLaunchInfoRouterProtocol {
         sourceVC.navigationController?.pushViewController(destinationVC, animated: true)
       }).thenChain({ moduleInput in
         
-        (moduleInput as? ListOfFlickerImagesViewOutputProtocol)!.setVariable(for: rocketLaunch)
+        (moduleInput as? ListOfFlickerImagesViewOutputProtocol)?.setVariable(for: rocketLaunch)
         
         return nil
       })

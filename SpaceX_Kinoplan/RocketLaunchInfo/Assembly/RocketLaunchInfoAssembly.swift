@@ -10,7 +10,6 @@ import ViperMcFlurry
 final class RocketLaunchInfoAssembly: NSObject, RamblerViperModuleFactoryProtocol {
   
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {
-    
     let viewController = RocketLaunchInfoViewController()
     
     let router = RocketLaunchInfoRouter()
@@ -24,7 +23,6 @@ final class RocketLaunchInfoAssembly: NSObject, RamblerViperModuleFactoryProtoco
     viewController.output = presenter
     
     return viewController
-    
   }
   
 }

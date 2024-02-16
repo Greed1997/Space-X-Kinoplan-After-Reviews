@@ -23,33 +23,16 @@ final class RocketLaunchInfoViewController: UIViewController {
   
   // MARK: - UI properties
   
-  private var stackView = UIStackView()
-  
-  // General info
-  
-  private let missionNameLabel = UILabel()
-  
-  private let missionPatchImageView = UIImageView()
-  
-  private let dateLabel = UILabel()
-  
-  // Links
-  
+  private var stackView              = UIStackView()
+  private let missionNameLabel       = UILabel()
+  private let missionPatchImageView  = UIImageView()
+  private let dateLabel              = UILabel()
   private let youtubeVideoLinkButton = UIButton(type: .system)
-  
-  private let wikipediaLinkButton = UIButton(type: .system)
-  
-  private let redditLinkButton = UIButton(type: .system)
-  
-  private let articleLinkButton = UIButton(type: .system)
-  
-  private let flickrImagesButton = UIButton(type: .system)
-  
-  // Back button
-  
-  private let backButton = UIButton(type: .system)
-  
-  private lazy var newBackLeftBarButtonItem = UIBarButtonItem(customView: backButton)
+  private let wikipediaLinkButton    = UIButton(type: .system)
+  private let redditLinkButton       = UIButton(type: .system)
+  private let articleLinkButton      = UIButton(type: .system)
+  private let flickrImagesButton     = UIButton(type: .system)
+  private let backButton             = UIButton(type: .system)
   
   // MARK: - viewDidLoad()
   
@@ -72,20 +55,16 @@ private extension RocketLaunchInfoViewController {
   // MARK: - Embed subviews for stackView
   
   func embedViews() {
-    let subviews = [missionNameLabel,
-                    missionPatchImageView,
-                    dateLabel,
-                    youtubeVideoLinkButton,
-                    wikipediaLinkButton,
-                    redditLinkButton,
-                    articleLinkButton,
-                    flickrImagesButton]
-    
-    subviews.forEach { stackView.addArrangedSubview($0) }
-    stackView.axis = .vertical
-    stackView.alignment = .center
-    stackView.distribution = .equalSpacing
-    stackView.spacing = 15
+    [
+      missionNameLabel,
+      missionPatchImageView,
+      dateLabel,
+      youtubeVideoLinkButton,
+      wikipediaLinkButton,
+      redditLinkButton,
+      articleLinkButton,
+      flickrImagesButton
+    ].forEach { stackView.addArrangedSubview($0) }
     view.addSubview(stackView)
   }
   
@@ -96,9 +75,7 @@ private extension RocketLaunchInfoViewController {
     stackView.snp.makeConstraints { make in
       make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
       make.centerX.equalTo(view.snp.centerX)
-      if stackView.arrangedSubviews.isEmpty == false {
-        make.bottom.lessThanOrEqualTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20).priority(.high)
-      }
+      make.bottom.lessThanOrEqualTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20).priority(.high)
     }
     
     missionNameLabel.snp.makeConstraints { make in
@@ -116,6 +93,11 @@ private extension RocketLaunchInfoViewController {
   
   func setupAppearance() {
     view.backgroundColor = .darkGray
+    
+    stackView.axis = .vertical
+    stackView.alignment = .center
+    stackView.distribution = .equalSpacing
+    stackView.spacing = 15
     
     missionNameLabel.numberOfLines      = 0
     missionNameLabel.textAlignment      = .center
@@ -152,13 +134,13 @@ private extension RocketLaunchInfoViewController {
     backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
     backButton.titleLabel?.font         = UIFont.systemFont(ofSize: 18)
     backButton.semanticContentAttribute = .forceRightToLeft
-    
-    navigationItem.leftBarButtonItem = newBackLeftBarButtonItem
   }
   
   // MARK: - Setup behavior
   
   func setupBehaviour() {
+    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+    
     backButton.addTarget(
       self,
       action: #selector(onBackButtonItemButtonTapped),
@@ -217,7 +199,7 @@ private extension RocketLaunchInfoViewController {
   }
   
   @objc func onBackButtonItemButtonTapped() {
-    output?.dismiss()
+    output?.onBackButtonTapped()
   }
   
 }
@@ -242,13 +224,11 @@ private extension RocketLaunchInfoViewController {
   // MARK: - Hide/unhide UI elements
   
   func updateButtonAvailability(for viewModel: RocketLaunchInfoViewModel) {
-    
     youtubeVideoLinkButton.isHidden = viewModel.youtubeLink == nil
     wikipediaLinkButton.isHidden = viewModel.wikiLink == nil
     redditLinkButton.isHidden = viewModel.redditLink == nil
     articleLinkButton.isHidden = viewModel.articleLink == nil
     flickrImagesButton.isHidden = viewModel.flickerImages?.isEmpty ?? true
-    
   }
   
 }

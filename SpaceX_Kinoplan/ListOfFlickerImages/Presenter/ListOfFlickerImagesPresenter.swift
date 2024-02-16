@@ -7,14 +7,12 @@
 
 import Foundation
 
-// MARK: - ListOfFlickerImagesPresenter
-
 final class ListOfFlickerImagesPresenter: NSObject {
   
   // MARK: - Connections
   
-  weak var view: ListOfFlickerImagesViewInputProtocol?
-  var router: ListOfFlickerImagesRouterProtocol?
+  private weak var view: ListOfFlickerImagesViewInputProtocol?
+  private var router: ListOfFlickerImagesRouterProtocol?
   
   // MARK: - Properties
   
@@ -36,14 +34,14 @@ final class ListOfFlickerImagesPresenter: NSObject {
 
 extension ListOfFlickerImagesPresenter: ListOfFlickerImagesViewOutputProtocol {
   
-  func dismiss() {
+  func onBackButtonTapped() {
     router?.dismiss()
   }
   
   func viewDidLoad() {
     view?.setData(
-      viewModel: ViewModel(
-        title: (rocketLaunch?.missionName)!,
+      viewModel: FlickerImageViewModel(
+        title: rocketLaunch?.missionName ?? "",
         flickerImageViewModel: convert(rocketLaunch)
       )
     )
@@ -67,7 +65,7 @@ private extension ListOfFlickerImagesPresenter {
       guard let flickerImageURL = URL(string: flickerImageString) else { return nil }
       return FlickerImageCell.FlickerImageViewModel(imageURL: flickerImageURL) { [weak self] in
         guard let self = self else { return }
-        self.router?.presentViewControllerWithSelectedFlickerImage(flickerImageURL: flickerImageURL)
+        self.router?.presentFlickerImageModule(flickerImageURL: flickerImageURL)
       }
     })
     

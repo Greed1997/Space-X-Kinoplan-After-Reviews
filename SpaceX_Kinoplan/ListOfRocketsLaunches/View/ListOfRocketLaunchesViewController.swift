@@ -18,11 +18,14 @@ final class ListOfRocketsLaunchesViewController: UIViewController {
   
   // MARK: - UI Properties
   
-  private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+  private let collectionView = UICollectionView(
+    frame: .zero,
+    collectionViewLayout: UICollectionViewFlowLayout()
+  )
   
   // MARK: - Properties
   
-  private var rocketLaunchCellViewModelElements: [RocketLaunchCell.ViewModel] = []
+  private var arrayOfRocketLaunchCellViewModels: [RocketLaunchCell.ViewModel] = []
   
   // MARK: - ViewDidLoad()
   
@@ -56,7 +59,7 @@ private extension ListOfRocketsLaunchesViewController {
   func setupAppearance() {
     collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     collectionView.backgroundColor = .darkGray
-    collectionView.collectionViewLayout = createCompositionalLayout()
+    collectionView.collectionViewLayout = createFlowLayout()
     (collectionView.collectionViewLayout as? UICollectionViewFlowLayout).flatMap {
       $0.scrollDirection = .vertical
     }
@@ -67,7 +70,7 @@ private extension ListOfRocketsLaunchesViewController {
   }
   
   func setupBehavior() {
-    collectionView.register(RocketLaunchCell.self, forCellWithReuseIdentifier: RocketLaunchCell.reuseID)
+    collectionView.register(RocketLaunchCell.self, forCellWithReuseIdentifier: .cell)
     
     collectionView.delegate = self
     collectionView.dataSource = self
@@ -75,32 +78,22 @@ private extension ListOfRocketsLaunchesViewController {
   
 }
 
-// MARK: - Create compositional layout
+// MARK: - Create flow layout
 
 private extension ListOfRocketsLaunchesViewController {
-  func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-    let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-      return self.createRocketLaunches()
-    }
+  
+  func createFlowLayout() -> UICollectionViewFlowLayout {
+    let layout = UICollectionViewFlowLayout()
+    layout.itemSize = CGSize(
+      width: self.view.bounds.width / 2.2,
+      height: self.view.bounds.height / 3.3
+    )
+    layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    layout.minimumInteritemSpacing = 10
+    layout.minimumLineSpacing = 10
     return layout
   }
   
-  // MARK: - Create Rocket launch section
-  
-  func createRocketLaunches() -> NSCollectionLayoutSection {
-    let itemSize            = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
-    let item                = NSCollectionLayoutItem(layoutSize: itemSize)
-    item.contentInsets      = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-    
-    let horizontalGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-    let horizontalGroup     = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupSize, subitems: [item, item])
-    
-    let verticalGroupSize   = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0/3.0))
-    let verticalGroup       = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupSize, subitems: [horizontalGroup, horizontalGroup])
-    
-    let section             = NSCollectionLayoutSection(group: verticalGroup)
-    return section
-  }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -111,16 +104,24 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
     1
   }
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return rocketLaunchCellViewModelElements.count
+  func collectionView(
+    _ collectionView: UICollectionView,
+    numberOfItemsInSection section: Int
+  ) -> Int {
+    return arrayOfRocketLaunchCellViewModels.count
   }
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    cellForItemAt indexPath: IndexPath
+  ) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(
-      withReuseIdentifier: RocketLaunchCell.reuseID,
+      withReuseIdentifier: .cell,
       for: indexPath
     ) as! RocketLaunchCell
-    cell.apply(viewModel: rocketLaunchCellViewModelElements[indexPath.row])
+    
+    cell.apply(viewModel: arrayOfRocketLaunchCellViewModels[indexPath.row])
+    
     return cell
   }
 }
@@ -128,21 +129,29 @@ extension ListOfRocketsLaunchesViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension ListOfRocketsLaunchesViewController: UICollectionViewDelegate {
+  
   func collectionView(
     _ collectionView: UICollectionView,
     didSelectItemAt indexPath: IndexPath
   ) {
-    rocketLaunchCellViewModelElements[indexPath.item].onTap()
+    arrayOfRocketLaunchCellViewModels[indexPath.item].onTap()
   }
+  
 }
 
 // MARK: - ListOfRocketsLaunchesViewController
 
 extension ListOfRocketsLaunchesViewController: ListOfRocketLaunchesViewProtocol {
   
-  func reloadCollectionView(rocketLaunchCellModels: [RocketLaunchCell.ViewModel]) {
-    self.rocketLaunchCellViewModelElements = rocketLaunchCellModels
+  func set(viewModel: [RocketLaunchCell.ViewModel]) {
+    self.arrayOfRocketLaunchCellViewModels = viewModel
     collectionView.reloadData()
   }
   
+}
+
+// MARK: - String extension
+
+private extension String {
+  static let cell = "RocketLaunchCell"
 }
