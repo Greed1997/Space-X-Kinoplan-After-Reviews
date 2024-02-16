@@ -1,5 +1,5 @@
 //
-//  FlickerImageViewAssembly.swift
+//  FlickerImageAssembly.swift
 //  SpaceX_Kinoplan
 //
 //  Created by Александр on 14.02.2024.
@@ -7,7 +7,7 @@
 
 import ViperMcFlurry
 
-final class FlickerImageViewAssembly: NSObject, RamblerViperModuleFactoryProtocol {
+final class FlickerImageAssembly: NSObject, RamblerViperModuleFactoryProtocol {
   
   
   func instantiateModuleTransitionHandler() -> RamblerViperModuleTransitionHandlerProtocol? {

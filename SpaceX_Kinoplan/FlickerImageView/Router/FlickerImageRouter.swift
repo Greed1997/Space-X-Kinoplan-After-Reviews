@@ -1,5 +1,5 @@
 //
-//  FlickerImageViewRouter.swift
+//  FlickerImageRouter.swift
 //  SpaceX_Kinoplan
 //
 //  Created by Александр on 14.02.2024.
@@ -9,7 +9,7 @@ import ViperMcFlurry
 
 // MARK: - FlickerImageViewRouter
 
-final class FlickerImageViewRouter: FlickerImageViewRouterProtocol {
+final class FlickerImageRouter: FlickerImageViewRouterProtocol {
   
   // MARK: - Connections
   

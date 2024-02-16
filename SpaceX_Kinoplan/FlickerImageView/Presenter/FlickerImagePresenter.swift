@@ -1,5 +1,5 @@
 //
-//  FlickerImageViewPresenter.swift
+//  FlickerImagePresenter.swift
 //  SpaceX_Kinoplan
 //
 //  Created by Александр on 14.02.2024.
@@ -7,10 +7,7 @@
 
 import Foundation
 
-// MARK: - FlickerImageViewPresenter
-
-final class FlickerImageViewPresenter: NSObject, FlickerImageViewOutputProtocol {
-  
+final class FlickerImagePresenter: NSObject, FlickerImageViewOutputProtocol {
   
   // MARK: - Connections
   
@@ -42,7 +39,7 @@ final class FlickerImageViewPresenter: NSObject, FlickerImageViewOutputProtocol 
 
 // MARK: - Resizing image
 
-extension FlickerImageViewPresenter {
+extension FlickerImagePresenter {
   func startResizingImage() {
     
   }
