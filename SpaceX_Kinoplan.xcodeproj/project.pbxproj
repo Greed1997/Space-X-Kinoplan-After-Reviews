@@ -27,6 +27,7 @@
 		84B4FDA82B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDA72B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift */; };
 		84B4FDAB2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDAA2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift */; };
 		84B4FDAE2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4FDAD2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift */; };
+		84D4915B2B91DC0800ECC6EA /* SomeShit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D4915A2B91DC0800ECC6EA /* SomeShit.swift */; };
 		84DF99E12B7F39F300F6DABF /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF99E02B7F39F300F6DABF /* UIImage + Extension.swift */; };
 		84E0ECF72B627A8A00D53D62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0ECF62B627A8A00D53D62 /* AppDelegate.swift */; };
 		84E0ECF92B627A8A00D53D62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E0ECF82B627A8A00D53D62 /* SceneDelegate.swift */; };
@@ -69,6 +70,7 @@
 		84B4FDA72B74D12B00CAD3B4 /* ListOfFlickerImagesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesRouter.swift; sourceTree = "<group>"; };
 		84B4FDAA2B74D13F00CAD3B4 /* ListOfFlickerImagesRouterProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesRouterProtocols.swift; sourceTree = "<group>"; };
 		84B4FDAD2B74D17200CAD3B4 /* ListOfFlickerImagesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfFlickerImagesAssembly.swift; sourceTree = "<group>"; };
+		84D4915A2B91DC0800ECC6EA /* SomeShit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeShit.swift; sourceTree = "<group>"; };
 		84DF99E02B7F39F300F6DABF /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
 		84E0ECF32B627A8A00D53D62 /* SpaceX_Kinoplan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceX_Kinoplan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E0ECF62B627A8A00D53D62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				84E0ECF62B627A8A00D53D62 /* AppDelegate.swift */,
 				84E0ECF82B627A8A00D53D62 /* SceneDelegate.swift */,
 				84E0ED042B627A8D00D53D62 /* Info.plist */,
+				84D4915A2B91DC0800ECC6EA /* SomeShit.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				84E0ED3D2B63EE3F00D53D62 /* ListOfFlickerImagesPresenter.swift in Sources */,
 				84B4FD902B74CFFC00CAD3B4 /* ListOfRocketsLaunchesRouter.swift in Sources */,
 				84B4FD772B74CD3100CAD3B4 /* ListOfRocketsLaunchesViewControllerProtocols.swift in Sources */,
+				84D4915B2B91DC0800ECC6EA /* SomeShit.swift in Sources */,
 				84A454272B7CB93A00CA5212 /* FlickerImageAssembly.swift in Sources */,
 				84B4FD802B74CE0400CAD3B4 /* ListOfRocketsLaunchesInteractorProtocols.swift in Sources */,
 				84B4FD962B74D03600CAD3B4 /* RocketLaunchInfoAssembly.swift in Sources */,
